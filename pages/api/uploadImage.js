@@ -1,7 +1,7 @@
-import nextConnect from 'next-connect';
-import multer from 'multer';
-import { cloudinary } from '../../lib/cloudinary';
-import sharp from 'sharp';
+const nextConnect = require('next-connect');
+const multer = require('multer');
+const { cloudinary } = require('../../lib/cloudinary');
+const sharp = require('sharp');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
