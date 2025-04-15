@@ -13,7 +13,8 @@ export default function DashboardPage() {
     telefono: '',
     fecha_boda: '',
     lugar_ceremonia: '',
-    hora_ceremonia: ''
+    hora_ceremonia: '',
+    youtube_musica: '' 
   });
 
   const [images, setImages] = useState([]);
@@ -168,6 +169,19 @@ export default function DashboardPage() {
             <label>Hora de ceremonia</label>
             <input type="text" name="hora_ceremonia" className="form-control" value={formData.hora_ceremonia} onChange={handleChange} required />
           </div>
+
+          <div className="form-group">
+            <label>YouTube Music URL</label>
+            <input
+              type="text"
+              name="youtube_musica"
+              className="form-control"
+              value={formData.youtube_musica}
+              onChange={handleChange}
+              placeholder="https://www.youtube.com/watch?v=xxxxx"
+            />
+          </div>
+
           <button type="submit" className="btn btn-primary mt-3">Save Changes</button>
         </form>
 
