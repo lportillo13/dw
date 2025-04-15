@@ -1,5 +1,7 @@
+// components/Header.js
 import React from 'react';
-import { Navbar, Container } from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 
 export default function Header() {
   return (
