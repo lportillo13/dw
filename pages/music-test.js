@@ -12,7 +12,7 @@ export default function MusicTest() {
     fetch(`/api/getCoupleDetails?id=${coupleId}`)
       .then(res => res.json())
       .then(data => {
-        const url = data?.youtube_music;
+        const url = data?.youtube_musica;
         setYoutubeUrl(url);
 
         const match = url?.match(/(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]+)/);
