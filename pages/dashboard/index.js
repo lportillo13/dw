@@ -64,26 +64,47 @@ export default function DashboardPage() {
     }
   };
 
-  const handleUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
+  const handleMultiUpload = async (files) => {
+    const uploads = Array.from(files);
+    const progressData = uploads.map((f) => ({ name: f.name, progress: 0 }));
+    setImages((prev) => [...prev, ...progressData]);
     setUploading(true);
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('couple_id', id);
-    formData.append('folder', 'gallery');
 
-    const res = await fetch('/api/uploadImage', {
-      method: 'POST',
-      body: formData,
-    });
+    for (let file of uploads) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('couple_id', id);
+      formData.append('folder', 'gallery');
 
-    if (res.ok) {
-      await fetchImages();
-    } else {
-      alert('Upload failed');
+      await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/uploadImage');
+
+        xhr.upload.addEventListener('progress', (event) => {
+          if (event.lengthComputable) {
+            const percent = Math.round((event.loaded / event.total) * 100);
+            setImages((prev) =>
+              prev.map((img) =>
+                img.name === file.name ? { ...img, progress: percent } : img
+              )
+            );
+          }
+        });
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            fetchImages();
+            resolve();
+          } else {
+            reject();
+          }
+        };
+
+        xhr.onerror = () => reject();
+        xhr.send(formData);
+      });
     }
+
     setUploading(false);
   };
 
@@ -153,13 +174,38 @@ export default function DashboardPage() {
         <hr className="my-5" />
 
         <h3>Upload Images (Gallery)</h3>
-        <input type="file" className="form-control" onChange={handleUpload} disabled={uploading} />
+        <input
+          type="file"
+          className="form-control"
+          multiple
+          onChange={(e) => handleMultiUpload(e.target.files)}
+          disabled={uploading}
+        />
 
         <div className="row mt-4">
           {images.map(img => (
-            <div key={img.public_id} className="col-md-4 mb-3">
-              <img src={img.secure_url} className="img-fluid rounded" alt="" />
-              <button className="btn btn-danger btn-sm mt-2" onClick={() => handleDelete(img.public_id)}>Delete</button>
+            <div key={img.public_id || img.name} className="col-md-4 mb-4">
+              {img.secure_url ? (
+                <>
+                  <img src={img.secure_url} className="img-fluid rounded" alt="" />
+                  <button className="btn btn-danger btn-sm mt-2" onClick={() => handleDelete(img.public_id)}>Delete</button>
+                </>
+              ) : (
+                <>
+                  <div className="border rounded p-3 bg-light text-center">
+                    <p>{img.name}</p>
+                    <div className="progress">
+                      <div
+                        className="progress-bar"
+                        role="progressbar"
+                        style={{ width: `${img.progress}%` }}
+                      >
+                        {img.progress}%
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
