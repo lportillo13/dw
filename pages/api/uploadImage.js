@@ -38,15 +38,22 @@ export default async function handler(req, res) {
     const image = sharp(buffer);
     const metadata = await image.metadata();
 
-    const resizeOptions =
-      metadata.width >= metadata.height
-        ? { width: 1920, height: null } // Horizontal
-        : { height: 1920, width: null }; // Vertical
+    let processedImage;
 
-    const webpBuffer = await image
-      .resize(resizeOptions)
-      .webp({ quality: 80 })
-      .toBuffer();
+    if (metadata.width > 1920 || metadata.height > 1920) {
+    const resizeOptions =
+        metadata.width >= metadata.height
+        ? { width: 1920, height: null }
+        : { height: 1920, width: null };
+
+    processedImage = image.resize(resizeOptions);
+    } else {
+    processedImage = image;
+    }
+
+    const webpBuffer = await processedImage
+    .webp({ quality: 80 })
+    .toBuffer();
 
     const uploadStream = cloudinary.uploader.upload_stream(
       {
