@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect';
 import multer from 'multer';
-import cloudinary from '../../lib/cloudinary';
+import { cloudinary } from '../../lib/cloudinary';
 import sharp from 'sharp';
 
 const upload = multer({ storage: multer.memoryStorage() });
