@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('couples')
       .select('*')
-      .eq('id', Number(id))
+      .eq('couple_id', Number(id))
       .single();
 
     if (error) {
