@@ -1,8 +1,10 @@
 import React from 'react';
+import CloudImageUploader from './CloudImageUploader';
 
-export default function InformacionGeneral({ formData = {}, handleChange }) {
+export default function InformacionGeneral({ formData = {}, handleChange, coupleId }) {
   return (
     <div>
+      {/* Tipo de Paquete */}
       <div className="form-group">
         <label>Tipo de Paquete</label>
         <select
@@ -16,6 +18,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           <option value="Plata">Plata</option>
         </select>
       </div>
+
+      {/* Nombre del Novio */}
       <div className="form-group">
         <label>Nombre del Novio</label>
         <input
@@ -26,6 +30,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Nombre de la Novia */}
       <div className="form-group">
         <label>Nombre de la Novia</label>
         <input
@@ -36,26 +42,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group">
-        <label>Correo Electrónico de los Novios</label>
-        <input
-          type="email"
-          name="correo_electronico"
-          className="form-control"
-          value={formData.correo_electronico || ''}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Número de Teléfono</label>
-        <input
-          type="text"
-          name="telefono"
-          className="form-control"
-          value={formData.telefono || ''}
-          onChange={handleChange}
-        />
-      </div>
+
+      {/* Fecha de la Boda */}
       <div className="form-group">
         <label>Fecha de la Boda</label>
         <input
@@ -66,6 +54,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Espacios Invitados */}
       <div className="form-group">
         <label>Espacios Invitados</label>
         <input
@@ -76,6 +66,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Color Títulos */}
       <div className="form-group">
         <label>Color Títulos</label>
         <input
@@ -86,6 +78,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Color Fondo */}
       <div className="form-group">
         <label>Color Fondo</label>
         <input
@@ -96,6 +90,8 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Slug de Invitación */}
       <div className="form-group">
         <label>Slug de Invitación</label>
         <input
@@ -103,6 +99,90 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           name="slug_de_invitacion"
           className="form-control"
           value={formData.slug_de_invitacion || ''}
+          onChange={handleChange}
+        />
+      </div>
+
+      {/* Sobre Invitación Frente */}
+      <CloudImageUploader
+        name="sobre_invitacion"
+        label="Sobre Invitación Frente"
+        value={formData.sobre_invitacion || ''}
+        onChange={handleChange}
+        folder="invitacion"
+        coupleId={coupleId}
+      />
+
+      {/* Sobre Invitación Atrás */}
+      <CloudImageUploader
+        name="sobre_invitacion_atras"
+        label="Sobre Invitación Atrás"
+        value={formData.sobre_invitacion_atras || ''}
+        onChange={handleChange}
+        folder="invitacion"
+        coupleId={coupleId}
+      />
+
+      {/* Solapa Cerrada */}
+      <CloudImageUploader
+        name="solapa_cerrada"
+        label="Solapa Cerrada"
+        value={formData.solapa_cerrada || ''}
+        onChange={handleChange}
+        folder="invitacion"
+        coupleId={coupleId}
+      />
+
+      {/* Solapa Abierta */}
+      <CloudImageUploader
+        name="solapa_abierta"
+        label="Solapa Abierta"
+        value={formData.solapa_abierta || ''}
+        onChange={handleChange}
+        folder="invitacion"
+        coupleId={coupleId}
+      />
+
+      {/* Fondo Sobre */}
+      <CloudImageUploader
+        name="fondo_sobre"
+        label="Fondo Sobre"
+        value={formData.fondo_sobre || ''}
+        onChange={handleChange}
+        folder="invitacion"
+        coupleId={coupleId}
+      />
+
+      {/* Fondo Invitación */}
+      <CloudImageUploader
+        name="fondo_invitacion"
+        label="Fondo Invitación"
+        value={formData.fondo_invitacion || ''}
+        onChange={handleChange}
+        folder="invitacion"
+        coupleId={coupleId}
+      />
+
+      {/* Título de la web (META) */}
+      <div className="form-group">
+        <label>Título de la web (META)</label>
+        <input
+          type="text"
+          name="titulo_de_la_web_meta_"
+          className="form-control"
+          value={formData.titulo_de_la_web_meta_ || ''}
+          onChange={handleChange}
+        />
+      </div>
+
+      {/* Descripción de la web (META) */}
+      <div className="form-group">
+        <label>Descripción de la web (META)</label>
+        <input
+          type="text"
+          name="descripcion_de_la_web"
+          className="form-control"
+          value={formData.descripcion_de_la_web || ''}
           onChange={handleChange}
         />
       </div>
