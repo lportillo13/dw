@@ -1,30 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { steps } from '../../lib/formSteps';
 
 export default function FormPage() {
-  const router = useRouter();
   const [answers, setAnswers] = useState({});
   const [currentStep, setCurrentStep] = useState(0);
   const [sessionCode, setSessionCode] = useState(null);
   const [loadCodeInput, setLoadCodeInput] = useState('');
   const [saveMessage, setSaveMessage] = useState('');
   const [showStart, setShowStart] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
   const inputRef = useRef(null);
 
-  // Compute visible steps
-  const visibleSteps = steps.filter(
-    step => !step.condition || step.condition(answers)
-  );
-
-  // Current visible index
+  const visibleSteps = steps.filter(step => !step.condition || step.condition(answers));
   const currentVisibleIndex = visibleSteps.findIndex(s => s.id === visibleSteps[currentStep]?.id);
-
-  // Progress percentage
   const progressPercent = Math.floor((currentVisibleIndex) / (visibleSteps.length - 1) * 100);
 
-  // Apply Google Places autocomplete for specific fields
   useEffect(() => {
     const step = visibleSteps[currentStep];
     if (step && (step.id === 'lugar_ceremonia' || step.id === 'lugar_recepcion') && window.google) {
@@ -49,15 +40,14 @@ export default function FormPage() {
     if (currentStep < visibleSteps.length - 1) {
       setCurrentStep(i => i + 1);
     } else {
-      // Final submission
       const res = await fetch('/api/couples', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ session_code: sessionCode, data: answers }),
+        body: JSON.stringify({ session_code: sessionCode, ...answers }),
       });
       const body = await res.json();
       if (res.ok) {
-        router.push(`/dashboard?couple_id=${body.couple_id}`);
+        setSubmitted(true);
       } else {
         console.error(body.error);
       }
@@ -121,6 +111,15 @@ export default function FormPage() {
           <button className="btn btn-primary" onClick={handleLoadCode}>Cargar</button>
           <button className="btn btn-outline-secondary" onClick={startNewForm}>Nuevo</button>
         </div>
+      </div>
+    );
+  }
+
+  if (submitted) {
+    return (
+      <div className="container py-5 text-center">
+        <h2 className="text-success">🎉 ¡Gracias por completar el formulario!</h2>
+        <p>Hemos recibido toda la información. Nos pondremos en contacto pronto.</p>
       </div>
     );
   }
