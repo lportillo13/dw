@@ -1,5 +1,5 @@
 // pages/api/session.js
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/supabase';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

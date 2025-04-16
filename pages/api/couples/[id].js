@@ -1,5 +1,5 @@
 // pages/api/couples/[id].js
-import { supabase } from '../../../lib/supabaseClient';
+import { supabase } from '../../../lib/supabase';
 
 export default async function handler(req, res) {
   const id = parseInt(req.query.id, 10);
