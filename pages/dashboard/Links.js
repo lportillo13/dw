@@ -1,12 +1,27 @@
-// Links.js
 import React from 'react';
 
 export default function Links({ formData = {}, handleChange }) {
+  // Only render this section if 'Activar Confirmación' is enabled (source tab conditional logic)
+  if (!formData.activar_confirmacion) return null;
+
   return (
     <div>
       <h3>Links & Layout</h3>
+
+      {/* Activar Links Inglés toggle */}
       <div className="form-group">
-        <label>Texto Cantidad de Invitados (Use {`{cantidad}`} as placeholder)</label>
+        <label>Activar Links Inglés</label>
+        <input
+          type="checkbox"
+          name="activar_links_ingles"
+          checked={Boolean(formData.activar_links_ingles)}
+          onChange={handleChange}
+        />
+      </div>
+
+      {/* Texto Cantidad de Invitados */}
+      <div className="form-group">
+        <label>Texto Cantidad de Invitados (usar {`{cantidad}`})</label>
         <input
           type="text"
           name="texto_cantidad_invitados"
@@ -15,6 +30,8 @@ export default function Links({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Invitación Posición Vertical */}
       <div className="form-group">
         <label>Invitación Posición Vertical</label>
         <input
@@ -25,6 +42,8 @@ export default function Links({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Invitación Posición Horizontal */}
       <div className="form-group">
         <label>Invitación Posición Horizontal</label>
         <input
@@ -35,6 +54,8 @@ export default function Links({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
+
+      {/* Invitación Tamaño de Letra */}
       <div className="form-group">
         <label>Invitación Tamaño de Letra</label>
         <input
@@ -45,17 +66,6 @@ export default function Links({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
-      {formData.activar_links_ingles && (
-        <div className="form-group">
-          <label>Activar Links Inglés (Toggle Enabled)</label>
-          <input
-            type="checkbox"
-            name="activar_links_ingles"
-            checked={Boolean(formData.activar_links_ingles)}
-            onChange={handleChange}
-          />
-        </div>
-      )}
     </div>
   );
 }
