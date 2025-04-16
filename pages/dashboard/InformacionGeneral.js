@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InformacionGeneral({ formData, handleChange }) {
+export default function InformacionGeneral({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -8,7 +8,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
         <select
           name="tipo_de_paquete"
           className="form-control"
-          value={formData.tipo_de_paquete}
+          value={formData.tipo_de_paquete || ''}
           onChange={handleChange}
         >
           <option value="">Seleccione...</option>
@@ -22,7 +22,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="text"
           name="nombre_del_novio"
           className="form-control"
-          value={formData.nombre_del_novio}
+          value={formData.nombre_del_novio || ''}
           onChange={handleChange}
           required
         />
@@ -33,7 +33,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="text"
           name="nombre_de_la_novia"
           className="form-control"
-          value={formData.nombre_de_la_novia}
+          value={formData.nombre_de_la_novia || ''}
           onChange={handleChange}
           required
         />
@@ -44,7 +44,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="email"
           name="correo_electronico"
           className="form-control"
-          value={formData.correo_electronico}
+          value={formData.correo_electronico || ''}
           onChange={handleChange}
           required
         />
@@ -55,7 +55,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="text"
           name="telefono"
           className="form-control"
-          value={formData.telefono}
+          value={formData.telefono || ''}
           onChange={handleChange}
           required
         />
@@ -66,7 +66,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="date"
           name="fecha_de_la_boda"
           className="form-control"
-          value={formData.fecha_de_la_boda}
+          value={formData.fecha_de_la_boda || ''}
           onChange={handleChange}
           required
         />
@@ -87,7 +87,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="color"
           name="color_titulos"
           className="form-control"
-          value={formData.color_titulos}
+          value={formData.color_titulos || '#000000'}
           onChange={handleChange}
         />
       </div>
@@ -97,7 +97,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="color"
           name="color_fondo"
           className="form-control"
-          value={formData.color_fondo}
+          value={formData.color_fondo || '#ffffff'}
           onChange={handleChange}
         />
       </div>
@@ -107,7 +107,7 @@ export default function InformacionGeneral({ formData, handleChange }) {
           type="text"
           name="slug_de_invitacion"
           className="form-control"
-          value={formData.slug_de_invitacion}
+          value={formData.slug_de_invitacion || ''}
           onChange={handleChange}
         />
       </div>

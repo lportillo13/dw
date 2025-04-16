@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Galeria({ id, images, handleMultiUpload, uploading, handleDelete }) {
+export default function Galeria({ id, images = [], handleMultiUpload, uploading, handleDelete }) {
   return (
     <div>
       <h4>Upload Images (Gallery)</h4>

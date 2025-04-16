@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Regalos({ formData, handleChange }) {
+export default function Regalos({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -18,7 +18,7 @@ export default function Regalos({ formData, handleChange }) {
           type="text"
           name="titulo_regalos"
           className="form-control"
-          value={formData.titulo_regalos}
+          value={formData.titulo_regalos || ''}
           onChange={handleChange}
         />
       </div>
@@ -28,7 +28,7 @@ export default function Regalos({ formData, handleChange }) {
           type="text"
           name="titulo_regalos_in"
           className="form-control"
-          value={formData.titulo_regalos_in}
+          value={formData.titulo_regalos_in || ''}
           onChange={handleChange}
         />
       </div>
@@ -37,7 +37,7 @@ export default function Regalos({ formData, handleChange }) {
         <input
           type="checkbox"
           name="activar_icono_regalos"
-          checked={formData.activar_icono_regalos}
+          checked={Boolean(formData.activar_icono_regalos)}
           onChange={handleChange}
         />
       </div>
@@ -47,7 +47,7 @@ export default function Regalos({ formData, handleChange }) {
           type="text"
           name="icono_regalos"
           className="form-control"
-          value={formData.icono_regalos}
+          value={formData.icono_regalos || ''}
           onChange={handleChange}
         />
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Invitacion({ formData, handleChange }) {
+export default function Invitacion({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -9,7 +9,7 @@ export default function Invitacion({ formData, handleChange }) {
           type="text"
           name="sobre_invitacion"
           className="form-control"
-          value={formData.sobre_invitacion}
+          value={formData.sobre_invitacion || ''}
           onChange={handleChange}
         />
       </div>
@@ -19,7 +19,7 @@ export default function Invitacion({ formData, handleChange }) {
           type="text"
           name="sobre_invitacion_atras"
           className="form-control"
-          value={formData.sobre_invitacion_atras}
+          value={formData.sobre_invitacion_atras || ''}
           onChange={handleChange}
         />
       </div>
@@ -29,7 +29,7 @@ export default function Invitacion({ formData, handleChange }) {
           type="text"
           name="solapa_cerrada"
           className="form-control"
-          value={formData.solapa_cerrada}
+          value={formData.solapa_cerrada || ''}
           onChange={handleChange}
         />
       </div>
@@ -39,7 +39,7 @@ export default function Invitacion({ formData, handleChange }) {
           type="text"
           name="solapa_abierta"
           className="form-control"
-          value={formData.solapa_abierta}
+          value={formData.solapa_abierta || ''}
           onChange={handleChange}
         />
       </div>
@@ -49,7 +49,7 @@ export default function Invitacion({ formData, handleChange }) {
           type="text"
           name="fondo_sobre"
           className="form-control"
-          value={formData.fondo_sobre}
+          value={formData.fondo_sobre || ''}
           onChange={handleChange}
         />
       </div>
@@ -59,7 +59,7 @@ export default function Invitacion({ formData, handleChange }) {
           type="text"
           name="fondo_invitacion"
           className="form-control"
-          value={formData.fondo_invitacion}
+          value={formData.fondo_invitacion || ''}
           onChange={handleChange}
         />
       </div>

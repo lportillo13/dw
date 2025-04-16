@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InfoExtra({ formData, handleChange }) {
+export default function InfoExtra({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">

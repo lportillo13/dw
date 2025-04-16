@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Ceremonia({ formData, handleChange }) {
+export default function Ceremonia({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -9,7 +9,7 @@ export default function Ceremonia({ formData, handleChange }) {
           type="text"
           name="lugar_de_la_ceremonia"
           className="form-control"
-          value={formData.lugar_de_la_ceremonia}
+          value={formData.lugar_de_la_ceremonia || ''}
           onChange={handleChange}
         />
       </div>
@@ -19,7 +19,7 @@ export default function Ceremonia({ formData, handleChange }) {
           type="time"
           name="hora_de_la_ceremonia"
           className="form-control"
-          value={formData.hora_de_la_ceremonia}
+          value={formData.hora_de_la_ceremonia || ''}
           onChange={handleChange}
         />
       </div>
@@ -29,7 +29,7 @@ export default function Ceremonia({ formData, handleChange }) {
           type="text"
           name="mapa_de_la_ceremonia"
           className="form-control"
-          value={formData.mapa_de_la_ceremonia}
+          value={formData.mapa_de_la_ceremonia || ''}
           onChange={handleChange}
         />
       </div>

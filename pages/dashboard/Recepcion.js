@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Recepcion({ formData, handleChange }) {
+export default function Recepcion({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -9,7 +9,7 @@ export default function Recepcion({ formData, handleChange }) {
           type="text"
           name="lugar_de_la_recepcion"
           className="form-control"
-          value={formData.lugar_de_la_recepcion}
+          value={formData.lugar_de_la_recepcion || ''}
           onChange={handleChange}
         />
       </div>
@@ -19,7 +19,7 @@ export default function Recepcion({ formData, handleChange }) {
           type="time"
           name="hora_de_la_recepcion"
           className="form-control"
-          value={formData.hora_de_la_recepcion}
+          value={formData.hora_de_la_recepcion || ''}
           onChange={handleChange}
         />
       </div>
@@ -29,7 +29,7 @@ export default function Recepcion({ formData, handleChange }) {
           type="text"
           name="mapa_de_la_recepcion"
           className="form-control"
-          value={formData.mapa_de_la_recepcion}
+          value={formData.mapa_de_la_recepcion || ''}
           onChange={handleChange}
         />
       </div>

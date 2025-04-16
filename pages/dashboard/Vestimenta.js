@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Vestimenta({ formData, handleChange }) {
+export default function Vestimenta({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -26,7 +26,7 @@ export default function Vestimenta({ formData, handleChange }) {
         <input
           type="checkbox"
           name="activar_icono_vestimenta"
-          checked={formData.activar_icono_vestimenta}
+          checked={Boolean(formData.activar_icono_vestimenta)}
           onChange={handleChange}
         />
       </div>
@@ -36,7 +36,7 @@ export default function Vestimenta({ formData, handleChange }) {
           type="text"
           name="icono_vestimenta"
           className="form-control"
-          value={formData.icono_vestimenta}
+          value={formData.icono_vestimenta || ''}
           onChange={handleChange}
         />
       </div>

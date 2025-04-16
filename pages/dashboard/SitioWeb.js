@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SitioWeb({ formData, handleChange }) {
+export default function SitioWeb({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -9,7 +9,7 @@ export default function SitioWeb({ formData, handleChange }) {
           type="text"
           name="titulo_de_la_web_meta_"
           className="form-control"
-          value={formData.titulo_de_la_web_meta_}
+          value={formData.titulo_de_la_web_meta_ || ''}
           onChange={handleChange}
         />
       </div>
@@ -19,7 +19,7 @@ export default function SitioWeb({ formData, handleChange }) {
           type="text"
           name="descripcion_de_la_web"
           className="form-control"
-          value={formData.descripcion_de_la_web}
+          value={formData.descripcion_de_la_web || ''}
           onChange={handleChange}
         />
       </div>
@@ -29,7 +29,7 @@ export default function SitioWeb({ formData, handleChange }) {
           type="text"
           name="titulo_de_la_web_meta_ingles"
           className="form-control"
-          value={formData.titulo_de_la_web_meta_ingles}
+          value={formData.titulo_de_la_web_meta_ingles || ''}
           onChange={handleChange}
         />
       </div>
@@ -39,7 +39,7 @@ export default function SitioWeb({ formData, handleChange }) {
           type="text"
           name="descripcion_de_la_web_meta_ingles"
           className="form-control"
-          value={formData.descripcion_de_la_web_meta_ingles}
+          value={formData.descripcion_de_la_web_meta_ingles || ''}
           onChange={handleChange}
         />
       </div>

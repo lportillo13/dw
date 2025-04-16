@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function RSVP({ formData, handleChange }) {
+export default function RSVP({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -9,7 +9,7 @@ export default function RSVP({ formData, handleChange }) {
           type="date"
           name="fecha_de_confirmacion"
           className="form-control"
-          value={formData.fecha_de_confirmacion}
+          value={formData.fecha_de_confirmacion || ''}
           onChange={handleChange}
         />
       </div>
@@ -19,7 +19,7 @@ export default function RSVP({ formData, handleChange }) {
           type="date"
           name="fecha_de_confirmacion_ingles"
           className="form-control"
-          value={formData.fecha_de_confirmacion_ingles}
+          value={formData.fecha_de_confirmacion_ingles || ''}
           onChange={handleChange}
         />
       </div>
@@ -29,7 +29,7 @@ export default function RSVP({ formData, handleChange }) {
           type="text"
           name="imagen_rsvp"
           className="form-control"
-          value={formData.imagen_rsvp}
+          value={formData.imagen_rsvp || ''}
           onChange={handleChange}
         />
       </div>

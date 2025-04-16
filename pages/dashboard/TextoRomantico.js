@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TextoRomantico({ formData, handleChange }) {
+export default function TextoRomantico({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -8,7 +8,7 @@ export default function TextoRomantico({ formData, handleChange }) {
         <input
           type="checkbox"
           name="activar_texto_romantico"
-          checked={formData.activar_texto_romantico}
+          checked={Boolean(formData.activar_texto_romantico)}
           onChange={handleChange}
         />
       </div>
@@ -18,7 +18,7 @@ export default function TextoRomantico({ formData, handleChange }) {
           type="text"
           name="fondo_texto_biblico"
           className="form-control"
-          value={formData.fondo_texto_biblico}
+          value={formData.fondo_texto_biblico || ''}
           onChange={handleChange}
         />
       </div>

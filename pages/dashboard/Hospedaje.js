@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Hospedaje({ formData, handleChange }) {
+export default function Hospedaje({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
@@ -26,7 +26,7 @@ export default function Hospedaje({ formData, handleChange }) {
         <input
           type="checkbox"
           name="activar_icono_hospedaje"
-          checked={formData.activar_icono_hospedaje}
+          checked={Boolean(formData.activar_icono_hospedaje)}
           onChange={handleChange}
         />
       </div>
@@ -36,7 +36,7 @@ export default function Hospedaje({ formData, handleChange }) {
           type="text"
           name="icono_hospedaje"
           className="form-control"
-          value={formData.icono_hospedaje}
+          value={formData.icono_hospedaje || ''}
           onChange={handleChange}
         />
       </div>
