@@ -47,6 +47,9 @@ export default function FormPage() {
       });
       const body = await res.json();
       if (res.ok) {
+        if (sessionCode) {
+          await fetch(`/api/session/${sessionCode}`, { method: 'DELETE' });
+        }
         setSubmitted(true);
       } else {
         console.error(body.error);
@@ -71,8 +74,11 @@ export default function FormPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: answers }),
     });
-    setSaveMessage(`✅ Guardado! Tu código es ${code}`);
-    setTimeout(() => setSaveMessage(''), 3000);
+    setSaveMessage(`Tu código es: ${code}`);
+  };
+
+  const handleCopyCode = () => {
+    if (sessionCode) navigator.clipboard.writeText(sessionCode);
   };
 
   const handleLoadCode = () => {
@@ -180,7 +186,13 @@ export default function FormPage() {
       </div>
 
       <div className="text-center mt-3">
-        <button type="button" className="btn btn-outline-info" onClick={handleSave}>Guardar y continuar después</button>
+        <button type="button" className="btn btn-outline-info me-2" onClick={handleSave}>Guardar y continuar después</button>
+        {sessionCode && (
+          <span className="d-inline-flex align-items-center">
+            <code className="me-2">{sessionCode}</code>
+            <button className="btn btn-sm btn-outline-secondary" onClick={handleCopyCode}>Copiar</button>
+          </span>
+        )}
         {saveMessage && <p className="text-success mt-2">{saveMessage}</p>}
       </div>
     </div>
