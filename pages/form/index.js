@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/form.css';
 import { steps } from '../../lib/formSteps';
 
 export default function FormPage() {
