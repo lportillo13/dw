@@ -16,7 +16,7 @@ import TitulosYTexto from './TitulosYTexto';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { id } = router.query;
+  const { couple_id: id } = router.query;
 
   const [formData, setFormData] = useState({});
   const [activeTab, setActiveTab] = useState('');
