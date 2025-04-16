@@ -1,12 +1,23 @@
-// Evento.js
 import React from 'react';
 
 export default function Evento({ formData = {}, handleChange }) {
   return (
     <div>
       <h3>Evento</h3>
+
+      {/* General event details if "Es Evento" is active */}
       {formData.es_evento ? (
-        <div>
+        <>
+          <div className="form-group">
+            <label>Ubicación de la boda</label>
+            <input
+              type="text"
+              name="ubicacion_de_la_boda"
+              className="form-control"
+              value={formData.ubicacion_de_la_boda || ''}
+              onChange={handleChange}
+            />
+          </div>
           <div className="form-group">
             <label>Lugar del Evento</label>
             <input
@@ -37,9 +48,10 @@ export default function Evento({ formData = {}, handleChange }) {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </>
       ) : (
         <>
+          {/* Ceremonia fields */}
           {formData.activar_ceremonia && (
             <div>
               <h4>Ceremonia</h4>
@@ -75,6 +87,8 @@ export default function Evento({ formData = {}, handleChange }) {
               </div>
             </div>
           )}
+
+          {/* Recepción fields */}
           {formData.activar_recepcion && (
             <div>
               <h4>Recepción</h4>
@@ -111,6 +125,33 @@ export default function Evento({ formData = {}, handleChange }) {
             </div>
           )}
         </>
+      )}
+
+      {/* Vestimenta fields */}
+      {formData.activar_vestimenta && (
+        <div>
+          <h4>Vestimenta</h4>
+          <div className="form-group">
+            <label>Tipo de Vestimenta</label>
+            <textarea
+              name="tipo_de_vestimenta"
+              className="form-control"
+              value={formData.tipo_de_vestimenta || ''}
+              onChange={handleChange}
+            />
+          </div>
+          {formData.activar_ingles && (
+            <div className="form-group">
+              <label>Tipo de Vestimenta Inglés</label>
+              <textarea
+                name="tipo_de_vestimenta_ingles"
+                className="form-control"
+                value={formData.tipo_de_vestimenta_ingles || ''}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
