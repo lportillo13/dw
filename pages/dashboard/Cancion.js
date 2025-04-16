@@ -4,24 +4,14 @@ export default function Cancion({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">
-        <label>YouTube Music URL</label>
+        <label>Canción de los Novios</label>
         <input
-          type="text"
-          name="youtube_music"
+          type="file"
+          name="cancion_de_los_novios"
           className="form-control"
-          value={formData.youtube_music || ''}
-          onChange={handleChange}
-          placeholder="https://www.youtube.com/watch?v=xxxxx"
-        />
-      </div>
-      <div className="form-group">
-        <label>Activar Canción</label>
-        <input
-          type="checkbox"
-          name="activar_cancion"
-          checked={Boolean(formData.activar_cancion)}
           onChange={handleChange}
         />
+        {/* You can later process the file upload using your API endpoint */}
       </div>
     </div>
   );

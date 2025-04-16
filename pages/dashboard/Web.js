@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SitioWeb({ formData = {}, handleChange }) {
+export default function Web({ formData = {}, handleChange }) {
   return (
     <div>
       <div className="form-group">

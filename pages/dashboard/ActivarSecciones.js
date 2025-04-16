@@ -6,7 +6,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       <h3>Activar Secciones</h3>
       <div className="form-group">
         <label>Activar Canción</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_cancion"
           checked={Boolean(formData.activar_cancion)}
@@ -14,8 +14,35 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
       <div className="form-group">
+        <label>Activar Logo</label>
+        <input
+          type="checkbox"
+          name="activar_logo"
+          checked={Boolean(formData.activar_logo)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Activar Contador</label>
+        <input
+          type="checkbox"
+          name="activar_contador"
+          checked={Boolean(formData.activar_contador)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Activar Texto Inicial</label>
+        <input
+          type="checkbox"
+          name="activar_texto_inicial"
+          checked={Boolean(formData.activar_texto_inicial)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
         <label>Activar Texto Romántico</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_texto_romantico"
           checked={Boolean(formData.activar_texto_romantico)}
@@ -24,7 +51,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Ceremonia</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_ceremonia"
           checked={Boolean(formData.activar_ceremonia)}
@@ -33,7 +60,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Recepción</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_recepcion"
           checked={Boolean(formData.activar_recepcion)}
@@ -42,7 +69,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Vestimenta</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_vestimenta"
           checked={Boolean(formData.activar_vestimenta)}
@@ -51,7 +78,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Regalos</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_regalo"
           checked={Boolean(formData.activar_regalo)}
@@ -60,7 +87,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Hospedaje</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_hospedaje"
           checked={Boolean(formData.activar_hospedaje)}
@@ -69,7 +96,7 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Info Extra</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_info_extra"
           checked={Boolean(formData.activar_info_extra)}
@@ -77,8 +104,17 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
       <div className="form-group">
+        <label>Activar Galería</label>
+        <input
+          type="checkbox"
+          name="activar_galeria"
+          checked={Boolean(formData.activar_galeria)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
         <label>Activar RSVP</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_rsvp_button"
           checked={Boolean(formData.activar_rsvp_button)}
@@ -87,10 +123,37 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
       </div>
       <div className="form-group">
         <label>Activar Confirmación</label>
-        <input 
+        <input
           type="checkbox"
           name="activar_confirmacion"
           checked={Boolean(formData.activar_confirmacion)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Activar Calendario</label>
+        <input
+          type="checkbox"
+          name="activar_calendario"
+          checked={Boolean(formData.activar_calendario)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Activar Hashtag</label>
+        <input
+          type="checkbox"
+          name="activar_hashtag"
+          checked={Boolean(formData.activar_hashtag)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Activar RSVP Button</label>
+        <input
+          type="checkbox"
+          name="activar_rsvp_button"
+          checked={Boolean(formData.activar_rsvp_button)}
           onChange={handleChange}
         />
       </div>

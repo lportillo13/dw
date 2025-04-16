@@ -24,7 +24,6 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           className="form-control"
           value={formData.nombre_del_novio || ''}
           onChange={handleChange}
-          required
         />
       </div>
       <div className="form-group">
@@ -35,29 +34,26 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           className="form-control"
           value={formData.nombre_de_la_novia || ''}
           onChange={handleChange}
-          required
         />
       </div>
       <div className="form-group">
-        <label>Correo Electrónico</label>
+        <label>Correo Electrónico de los Novios</label>
         <input
           type="email"
           name="correo_electronico"
           className="form-control"
           value={formData.correo_electronico || ''}
           onChange={handleChange}
-          required
         />
       </div>
       <div className="form-group">
-        <label>Teléfono</label>
+        <label>Número de Teléfono</label>
         <input
           type="text"
           name="telefono"
           className="form-control"
           value={formData.telefono || ''}
           onChange={handleChange}
-          required
         />
       </div>
       <div className="form-group">
@@ -68,7 +64,6 @@ export default function InformacionGeneral({ formData = {}, handleChange }) {
           className="form-control"
           value={formData.fecha_de_la_boda || ''}
           onChange={handleChange}
-          required
         />
       </div>
       <div className="form-group">

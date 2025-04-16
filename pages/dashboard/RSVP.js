@@ -1,6 +1,7 @@
 import React from 'react';
+import CloudImageUploader from './CloudImageUploader';
 
-export default function RSVP({ formData = {}, handleChange }) {
+export default function RSVP({ formData = {}, handleChange, coupleId }) {
   return (
     <div>
       <div className="form-group">
@@ -23,16 +24,14 @@ export default function RSVP({ formData = {}, handleChange }) {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group">
-        <label>Imagen RSVP (URL)</label>
-        <input
-          type="text"
-          name="imagen_rsvp"
-          className="form-control"
-          value={formData.imagen_rsvp || ''}
-          onChange={handleChange}
-        />
-      </div>
+      <CloudImageUploader
+        name="imagen_rsvp"
+        label="Imagen RSVP"
+        value={formData.imagen_rsvp || ''}
+        onChange={handleChange}
+        folder="rsvp"
+        coupleId={coupleId}
+      />
     </div>
   );
 }

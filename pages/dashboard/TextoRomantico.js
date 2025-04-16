@@ -1,25 +1,17 @@
 import React from 'react';
+import CloudImageUploader from './CloudImageUploader';
 
-export default function TextoRomantico({ formData = {}, handleChange }) {
+export default function TextoRomantico({ formData = {}, handleChange, coupleId }) {
   return (
     <div>
       <div className="form-group">
-        <label>Activar Texto Romántico</label>
-        <input
-          type="checkbox"
-          name="activar_texto_romantico"
-          checked={Boolean(formData.activar_texto_romantico)}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Fondo Texto Romántico (URL de imagen)</label>
-        <input
-          type="text"
+        <label>Fondo Texto Romántico</label>
+        <CloudImageUploader
           name="fondo_texto_biblico"
-          className="form-control"
           value={formData.fondo_texto_biblico || ''}
           onChange={handleChange}
+          folder="textoRomantico"
+          coupleId={coupleId}
         />
       </div>
       <div className="form-group">
