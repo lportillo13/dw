@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SidebarTabs({ tabs, activeTab, onTabClick }) {
+export default function SidebarTabs({ tabs = [], activeTab, onTabClick }) {
   return (
     <div style={{ minWidth: '200px', borderRight: '1px solid #ddd', paddingRight: '1rem' }}>
       {tabs.map((tab) => (
