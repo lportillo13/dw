@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     const { data: inserted, error } = await supabase
       .from('couples')
       .insert({ session_code, data })
-      .select('couples_id')
+      .select('couple_id')
       .single();
 
     if (error) {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: error.message });
     }
 
-    return res.status(201).json({ couples_id: inserted.couples_id });
+    return res.status(201).json({ couple_id: inserted.couple_id });
   }
 
   res.setHeader('Allow', 'POST');

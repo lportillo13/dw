@@ -57,7 +57,7 @@ export default function FormPage() {
       });
       const body = await res.json();
       if (res.ok) {
-        router.push(`/dashboard?couples_id=${body.couples_id}`);
+        router.push(`/dashboard?couple_id=${body.couple_id}`);
       } else {
         console.error(body.error);
       }
