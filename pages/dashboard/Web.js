@@ -1,91 +1,54 @@
+// Web.js
 import React from 'react';
-import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
-
-// Dynamically import ReactQuill to disable SSR
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function Web({ formData = {}, handleChange }) {
-  // Create a helper that simulates an event for the rich text editor
-  const handleQuillChange = (value) => {
-    // Create a synthetic event to match your handleChange signature
-    handleChange({ target: { name: 'texto_inicial', value } });
-  };
-
   return (
     <div>
-      {/* Título del Evento */}
+      <h3>Web Settings</h3>
       <div className="form-group">
-        <label>Título del Evento</label>
+        <label>Título de la web (META)</label>
         <input
           type="text"
-          name="titulo_evento"
+          name="titulo_de_la_web_meta_"
           className="form-control"
-          value={formData.titulo_evento || ''}
+          value={formData.titulo_de_la_web_meta_ || ''}
           onChange={handleChange}
         />
       </div>
-
-      {/* Título del Evento Inglés */}
       <div className="form-group">
-        <label>Título del Evento Inglés</label>
+        <label>Descripción de la web (META)</label>
         <input
           type="text"
-          name="titulo_evento_in"
+          name="descripcion_de_la_web"
           className="form-control"
-          value={formData.titulo_evento_in || ''}
+          value={formData.descripcion_de_la_web || ''}
           onChange={handleChange}
         />
       </div>
-
-      {/* Fecha de la Boda texto */}
-      <div className="form-group">
-        <label>Fecha de la Boda texto</label>
-        <input
-          type="date"
-          name="fecha_de_la_boda_texto"
-          className="form-control"
-          value={formData.fecha_de_la_boda_texto || ''}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Nombre que aparezca primero */}
-      <div className="form-group">
-        <label>Nombre que aparezca primero</label>
-        <select
-          name="nombre_que_aparezca_primero"
-          className="form-control"
-          value={formData.nombre_que_aparezca_primero || ''}
-          onChange={handleChange}
-        >
-          <option value="">Seleccione...</option>
-          <option value="novio">Novio</option>
-          <option value="novia">Novia</option>
-        </select>
-      </div>
-
-      {/* Texto Hero */}
-      <div className="form-group">
-        <label>Texto Hero</label>
-        <input
-          type="text"
-          name="texto_hero"
-          className="form-control"
-          value={formData.texto_hero || ''}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Texto Inicial (Rich Text Editor via ReactQuill) */}
-      <div className="form-group">
-        <label>Texto Inicial</label>
-        <ReactQuill
-          theme="snow"
-          value={formData.texto_inicial || ''}
-          onChange={handleQuillChange}
-        />
-      </div>
+      {formData.activar_ingles && (
+        <>
+          <div className="form-group">
+            <label>Título de la web (META) Inglés</label>
+            <input
+              type="text"
+              name="titulo_de_la_web_meta_ingles"
+              className="form-control"
+              value={formData.titulo_de_la_web_meta_ingles || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Descripción de la web (META) Inglés</label>
+            <input
+              type="text"
+              name="descripcion_de_la_web_meta_ingles"
+              className="form-control"
+              value={formData.descripcion_de_la_web_meta_ingles || ''}
+              onChange={handleChange}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }

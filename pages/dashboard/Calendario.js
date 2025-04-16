@@ -1,41 +1,42 @@
+// Calendario.js
 import React from 'react';
-import dynamic from 'next/dynamic';
 import CloudImageUploader from './CloudImageUploader';
-import 'react-quill/dist/quill.snow.css';
-
-// Dynamically import ReactQuill so it only loads on the client
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function Calendario({ formData = {}, handleChange, coupleId }) {
-  // A helper function to simulate an event structure for the rich text editor.
-  const handleQuillChange = (value) => {
-    handleChange({ target: { name: 'texto_calendario', value } });
-  };
-
   return (
     <div>
-      {/* Foto Calendario */}
+      <h3>Calendario</h3>
       <div className="form-group">
         <label>Foto Calendario</label>
         <CloudImageUploader
           name="foto_calendario"
-          label="Foto Calendario"
+          label=""
           value={formData.foto_calendario || ''}
           onChange={handleChange}
           folder="calendario"
           coupleId={coupleId}
         />
       </div>
-
-      {/* Texto Calendario */}
       <div className="form-group">
-        <label>Texto Calendario</label>
-        <ReactQuill
-          theme="snow"
+        <label>Texto Calendario (HTML)</label>
+        <textarea
+          name="texto_calendario"
+          className="form-control"
           value={formData.texto_calendario || ''}
-          onChange={handleQuillChange}
+          onChange={handleChange}
         />
       </div>
+      {formData.activar_ingles && (
+        <div className="form-group">
+          <label>Texto Calendario Inglés (HTML)</label>
+          <textarea
+            name="texto_calendario_ingles"
+            className="form-control"
+            value={formData.texto_calendario_ingles || ''}
+            onChange={handleChange}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,17 +1,19 @@
+// Cancion.js
 import React from 'react';
 
 export default function Cancion({ formData = {}, handleChange }) {
   return (
     <div>
+      <h3>Canción</h3>
       <div className="form-group">
-        <label>Canción de los novios (YouTube URL)</label>
+        <label>Canción de los novios (File URL or Link)</label>
         <input
           type="text"
-          name="youtube_music"
+          name="cancion_de_los_novios"
           className="form-control"
-          value={formData.youtube_music || ''}
+          value={formData.cancion_de_los_novios || ''}
           onChange={handleChange}
-          placeholder="https://www.youtube.com/watch?v=xxxxx"
+          placeholder="URL to the song file or embed link"
         />
       </div>
     </div>
