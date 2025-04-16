@@ -1,11 +1,190 @@
-// pages/form/index.js
-import React from 'react';
-import BilingualWeddingForm from '../../components/BilingualWeddingForm';
+import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/form.css';
+import { steps } from '../../lib/formSteps';
 
-export default function WeddingFormPage() {
+export default function FormPage() {
+  const router = useRouter();
+  const [answers, setAnswers] = useState({});
+  const [currentStep, setCurrentStep] = useState(0);
+  const [sessionCode, setSessionCode] = useState(null);
+  const [loadCodeInput, setLoadCodeInput] = useState('');
+  const [saveMessage, setSaveMessage] = useState('');
+  const [showStart, setShowStart] = useState(true);
+  const inputRef = useRef(null);
+
+  // Compute visible steps
+  const visibleSteps = steps.filter(
+    step => !step.condition || step.condition(answers)
+  );
+
+  // Current visible index
+  const currentVisibleIndex = visibleSteps.findIndex(s => s.id === visibleSteps[currentStep]?.id);
+
+  // Progress percentage
+  const progressPercent = Math.floor((currentVisibleIndex) / (visibleSteps.length - 1) * 100);
+
+  // Apply Google Places autocomplete for specific fields
+  useEffect(() => {
+    const step = visibleSteps[currentStep];
+    if (step && (step.id === 'lugar_ceremonia' || step.id === 'lugar_recepcion') && window.google) {
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        inputRef.current,
+        { types: ['geocode'], fields: ['formatted_address'] }
+      );
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        handleChange(step.id, place.formatted_address || '');
+      });
+    }
+  }, [currentStep, showStart]);
+
+  const handleChange = (id, value) => {
+    setAnswers(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleNext = async () => {
+    const step = visibleSteps[currentStep];
+    if (!answers[step.id]) return;
+    if (currentStep < visibleSteps.length - 1) {
+      setCurrentStep(i => i + 1);
+    } else {
+      // Final submission
+      const res = await fetch('/api/couples', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_code: sessionCode, data: answers }),
+      });
+      const body = await res.json();
+      if (res.ok) {
+        router.push(`/dashboard?couples_id=${body.couples_id}`);
+      } else {
+        console.error(body.error);
+      }
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) setCurrentStep(i => i - 1);
+  };
+
+  const handleSave = async () => {
+    let code = sessionCode;
+    if (!code) {
+      const res = await fetch('/api/session', { method: 'POST' });
+      const body = await res.json();
+      code = body.code;
+      setSessionCode(code);
+    }
+    await fetch(`/api/session/${code}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: answers }),
+    });
+    setSaveMessage(`✅ Guardado! Tu código es ${code}`);
+    setTimeout(() => setSaveMessage(''), 3000);
+  };
+
+  const handleLoadCode = () => {
+    if (!loadCodeInput.trim()) return;
+    fetch(`/api/session/${loadCodeInput.trim()}`)
+      .then(res => res.json())
+      .then(body => {
+        setAnswers(body.data || {});
+        setSessionCode(loadCodeInput.trim());
+        setShowStart(false);
+        const firstVisible = steps.findIndex(
+          step => (body.data || {})[step.id] && (!step.condition || step.condition(body.data))
+        );
+        setCurrentStep(firstVisible >= 0 ? firstVisible : 0);
+      });
+  };
+
+  const startNewForm = () => {
+    setShowStart(false);
+    setCurrentStep(0);
+    setAnswers({});
+  };
+
+  if (showStart) {
+    return (
+      <div className="container py-5 text-center" id="start-screen">
+        <h1>Formulario de Boda</h1>
+        <div className="d-flex justify-content-center gap-2 mt-3">
+          <input
+            type="text"
+            className="form-control w-auto"
+            placeholder="Código existente"
+            value={loadCodeInput}
+            onChange={e => setLoadCodeInput(e.target.value)}
+          />
+          <button className="btn btn-primary" onClick={handleLoadCode}>Cargar</button>
+          <button className="btn btn-outline-secondary" onClick={startNewForm}>Nuevo</button>
+        </div>
+      </div>
+    );
+  }
+
+  const step = visibleSteps[currentStep];
+
   return (
-    <div>
-      <BilingualWeddingForm />
+    <div className="container py-5">
+      <div className="progress mb-4">
+        <div className="progress-bar bg-success" role="progressbar"
+          style={{ width: `${progressPercent}%` }}
+          aria-valuenow={progressPercent}
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor={step.id} className="form-label fw-semibold">{step.question}</label>
+        {step.type === 'select' ? (
+          <select
+            id={step.id}
+            ref={inputRef}
+            className="form-select"
+            value={answers[step.id] || ''}
+            onChange={e => handleChange(step.id, e.target.value)}
+            required={step.required}
+          >
+            <option value="">Seleccionar...</option>
+            {step.options.map(o => <option key={o} value={o}>{o}</option>)}
+          </select>
+        ) : (
+          <input
+            id={step.id}
+            ref={inputRef}
+            type={step.type}
+            className="form-control"
+            value={answers[step.id] || ''}
+            onChange={e => handleChange(step.id, e.target.value)}
+            required={step.required}
+          />
+        )}
+      </div>
+
+      <div className="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handlePrev}
+          disabled={currentStep === 0}
+        >Anterior</button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleNext}
+          disabled={!answers[step.id]}
+        >{currentStep < visibleSteps.length - 1 ? 'Siguiente' : 'Enviar'}</button>
+      </div>
+
+      <div className="text-center mt-3">
+        <button type="button" className="btn btn-outline-info" onClick={handleSave}>Guardar y continuar después</button>
+        {saveMessage && <p className="text-success mt-2">{saveMessage}</p>}
+      </div>
     </div>
   );
 }
