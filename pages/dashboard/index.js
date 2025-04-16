@@ -133,6 +133,8 @@ export default function DashboardPage() {
     adultos_texto_ingles: '',
   });
   
+  
+  const [activeTab, setActiveTab] = useState('');
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
