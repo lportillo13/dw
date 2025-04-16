@@ -1,8 +1,11 @@
+// DashboardPage.js
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Header from '../../components/Header';
 import SidebarTabs from './SidebarTabs';
+
 // Import section components (create these in separate files)
+import ActivarSecciones from './ActivarSecciones';
 import InformacionGeneral from './InformacionGeneral';
 import Invitacion from './Invitacion';
 import SitioWeb from './SitioWeb';
@@ -24,7 +27,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  // State initialization – ensure these keys match your database schema
+  // Initialize formData with all fields. (Ensure DB defaults are false for the toggle fields.)
   const [formData, setFormData] = useState({
     tipo_de_paquete: '',
     nombre_del_novio: '',
@@ -108,14 +111,15 @@ export default function DashboardPage() {
     adultos_texto: '',
     adultos_texto_ingles: ''
   });
-
+  
   const [activeTab, setActiveTab] = useState('');
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
 
-  // Tab configuration based on formData and conditional logic
+  // Add "Activar Secciones" in the tabs. (Now always available.)
   const tabsConfig = [
+    { name: 'Activar Secciones', condition: (data) => true },
     { name: 'Información General', condition: (data) => true },
     { name: 'Invitación', condition: (data) => true },
     { name: 'Sitio Web', condition: (data) => true },
@@ -142,7 +146,6 @@ export default function DashboardPage() {
     }
   }, [visibleTabs, activeTab]);
 
-  // Fetch couple details and images when id is available
   useEffect(() => {
     if (!id) return;
     fetch(`/api/getCoupleDetails?id=${id}`)
@@ -184,7 +187,7 @@ export default function DashboardPage() {
     }
   };
 
-  // Use your existing API logic for image uploading and deletion
+  // Use your API endpoints for image uploading and deletion
   const handleMultiUpload = async (files) => {
     const uploads = Array.from(files);
     setUploading(true);
@@ -199,7 +202,6 @@ export default function DashboardPage() {
       });
     }
     setUploading(false);
-    // Refresh images after upload
     fetchImages();
   };
 
@@ -220,16 +222,15 @@ export default function DashboardPage() {
     return (
       <div>
         <Header />
-        <div className="container mt-5">
-          <p>Loading...</p>
-        </div>
+        <div className="container mt-5"><p>Loading...</p></div>
       </div>
     );
   }
 
-  // Helper function to render the content based on the activeTab
   const renderTabContent = () => {
     switch (activeTab) {
+      case 'Activar Secciones':
+        return <ActivarSecciones formData={formData} handleChange={handleChange} />;
       case 'Información General':
         return <InformacionGeneral formData={formData} handleChange={handleChange} />;
       case 'Invitación':
@@ -293,4 +294,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-asfa

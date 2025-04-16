@@ -5,7 +5,7 @@ export default function SidebarTabs({ tabs = [], activeTab, onTabClick }) {
     <div style={{ minWidth: '200px', borderRight: '1px solid #ddd', paddingRight: '1rem' }}>
       {tabs.map((tab) => (
         <div key={tab} style={{ marginBottom: '10px' }}>
-          <button
+          <button 
             onClick={() => onTabClick(tab)}
             style={{
               width: '100%',
