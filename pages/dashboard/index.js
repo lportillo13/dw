@@ -18,24 +18,36 @@ export default function DashboardPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const [formData, setFormData] = useState({ /* include all fields (see your ACF defaults) */ });
+  const [formData, setFormData] = useState({});
   const [activeTab, setActiveTab] = useState('');
   const [loading, setLoading] = useState(true);
-  const [images, setImages] = useState([]);
-  const [uploading, setUploading] = useState(false);
 
-  const tabs = [
-    'Información General',
-    'Activar Secciones',
-    'Web',
-    'Calendario',
-    'Canción',
-    'Texto Romantico',
-    'Evento',
-    'RSVP',
-    'Links',
-    'Titulos & Texto'
+  const allTabs = [
+    { name: 'Información General', always: true },
+    { name: 'Activar Secciones', always: true },
+    { name: 'Web', always: true },
+    { name: 'Calendario', flag: 'activar_calendario' },
+    { name: 'Canción', flag: 'activar_cancion' },
+    { name: 'Texto Romantico', flag: 'activar_texto_romantico' },
+    {
+      name: 'Evento',
+      condition: () =>
+        Boolean(formData.es_evento) ||
+        Boolean(formData.activar_ceremonia) ||
+        Boolean(formData.activar_recepcion),
+    },
+    { name: 'RSVP', flag: 'activar_confirmacion' },
+    { name: 'Links', flag: 'activar_confirmacion' },
+    { name: 'Titulos & Texto', always: true },
   ];
+
+  const tabs = allTabs
+    .filter(tab =>
+      tab.always ||
+      (tab.flag && Boolean(formData[tab.flag])) ||
+      (tab.condition && tab.condition())
+    )
+    .map(tab => tab.name);
 
   useEffect(() => {
     if (!id) return;
@@ -49,7 +61,6 @@ export default function DashboardPage() {
         }
         setLoading(false);
       });
-    // Fetch gallery images if needed
   }, [id]);
 
   const handleChange = (e) => {
@@ -81,15 +92,15 @@ export default function DashboardPage() {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'Información General':
-        return <InformacionGeneral formData={formData} handleChange={handleChange} />;
+        return <InformacionGeneral formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Activar Secciones':
         return <ActivarSecciones formData={formData} handleChange={handleChange} />;
       case 'Web':
-        return <Web formData={formData} handleChange={handleChange} />;
+        return <Web formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Calendario':
         return <Calendario formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Canción':
-        return <Cancion formData={formData} handleChange={handleChange} />;
+        return <Cancion formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Texto Romantico':
         return <TextoRomantico formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Evento':
@@ -97,7 +108,7 @@ export default function DashboardPage() {
       case 'RSVP':
         return <RSVP formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Links':
-        return <Links formData={formData} handleChange={handleChange} />;
+        return <Links formData={formData} handleChange={handleChange} coupleId={id} />;
       case 'Titulos & Texto':
         return <TitulosYTexto formData={formData} handleChange={handleChange} coupleId={id} />;
       default:
