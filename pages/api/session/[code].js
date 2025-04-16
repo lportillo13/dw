@@ -1,5 +1,5 @@
 // pages/api/session/[code].js
-import { supabase } from '../../../lib/supabaseClient';
+import { supabase } from '../../../lib/supabase';
 
 export default async function handler(req, res) {
   const { code } = req.query;

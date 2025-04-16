@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  .bg-light{
+    height: 100vh;    
+    display: flex;
+  }
+  body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 200;
+  }
+  
+  label {
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  button {
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  label {
+    font-size: 1rem;
+  }
+  
+  textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  select {
+    font-size: 1rem;
+  }
+  
+  button {
+    min-width: 120px;
+  }
+  
+  #saveMessage {
+    font-size: 0.95rem;
+  }
+  
+  /* Slide transition effect */
+  #form-steps > div {
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(20px);
+    position: absolute;
+    width: 100%;
+  }
+  
+  #form-steps > div.active {
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+  }
+  button{
+    border-radius: 0 !important;
+  }
+  button.btn.btn-primary{
+    background: #000;
+    color: white;
+    border: none;
+  }
+  button.btn.btn-primary:hover{
+    background: #414141;
+    color: white;
+  }
+  button#saveBtn{
+    color: #333;
+    background-color: #fff;
+    border-color: #333;
+  }
