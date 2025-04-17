@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useRouter } from 'next/router';
 import { steps } from '../../lib/formSteps';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import SelectLanguages from '../../components/SelectLanguages';
 
 export default function FormPage() {
@@ -22,9 +22,9 @@ export default function FormPage() {
   const visibleSteps = steps.filter(step => !step.condition || step.condition(answers));
   const currentVisibleIndex = visibleSteps.findIndex(s => s.id === visibleSteps[currentStep]?.id);
   const progressPercent = Math.floor((currentVisibleIndex) / (visibleSteps.length - 1) * 100);
+  const step = visibleSteps[currentStep];
 
   useEffect(() => {
-    const step = visibleSteps[currentStep];
     if (step && (step.id === 'lugar_ceremonia' || step.id === 'lugar_recepcion') && window.google) {
       const autocomplete = new window.google.maps.places.Autocomplete(
         inputRef.current,
@@ -41,9 +41,18 @@ export default function FormPage() {
     setAnswers(prev => ({ ...prev, [id]: value }));
   };
 
+  const handleMultilangChange = (id, lang, value) => {
+    setAnswers(prev => ({
+      ...prev,
+      [id]: {
+        ...(prev[id] || {}),
+        [lang]: value
+      }
+    }));
+  };
+
   const handleNext = async () => {
-    const step = visibleSteps[currentStep];
-    if (!answers[step.id]) return;
+    if (!answers[step.id] || (step.type === 'multilang' && Object.keys(answers[step.id] || {}).length === 0)) return;
 
     if (currentStep < visibleSteps.length - 1) {
       setCurrentStep(i => i + 1);
@@ -64,6 +73,7 @@ export default function FormPage() {
 
     if (res.ok) {
       const coupleId = body.couple_id;
+
       if (sessionCode) {
         await fetch('/api/remove-session-code', {
           method: 'POST',
@@ -71,10 +81,9 @@ export default function FormPage() {
           body: JSON.stringify({ couple_id: coupleId })
         });
 
-        await fetch(`/api/session/${sessionCode}`, {
-          method: 'DELETE',
-        });
+        await fetch(`/api/session/${sessionCode}`, { method: 'DELETE' });
       }
+
       setSubmitted(true);
     } else {
       console.error('Error submitting form:', body.error);
@@ -94,11 +103,13 @@ export default function FormPage() {
       code = body.code;
       setSessionCode(code);
     }
+
     await fetch(`/api/session/${code}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: answers }),
     });
+
     setSaveMessage(`${t('yourCodeIs')} ${code}`);
   };
 
@@ -145,6 +156,11 @@ export default function FormPage() {
           </select>
         </div>
         <h1>{t('formTitle')}</h1>
+        {(
+          <div className="my-3">
+            <SelectLanguages selected={activeLanguages} onChange={setActiveLanguages} />
+          </div>
+        )}
         <div className="d-flex justify-content-center gap-2 mt-3">
           <input
             type="text"
@@ -169,8 +185,6 @@ export default function FormPage() {
     );
   }
 
-  const step = visibleSteps[currentStep];
-
   return (
     <div className="container py-5">
       <div className="text-end mb-4">
@@ -184,10 +198,6 @@ export default function FormPage() {
         </select>
       </div>
 
-      {currentStep === 0 && (
-        <SelectLanguages selected={activeLanguages} onChange={setActiveLanguages} />
-      )}
-
       <div className="progress mb-4">
         <div className="progress-bar bg-success" role="progressbar"
           style={{ width: `${progressPercent}%` }}
@@ -198,57 +208,41 @@ export default function FormPage() {
       </div>
 
       <div className="mb-3">
-        {step.type === 'multilang' ? (
-          <>
-            <label className="form-label fw-semibold">{t(step.questionKey)}</label>
-            {activeLanguages.map(lang => (
-              <div key={lang} className="mb-2">
-                <label className="form-label small">({lang.toUpperCase()})</label>
-                <textarea
-                  id={`${step.id}_${lang}`}
-                  className="form-control"
-                  value={answers[step.id]?.[lang] || ''}
-                  onChange={(e) =>
-                    setAnswers(prev => ({
-                      ...prev,
-                      [step.id]: {
-                        ...(prev[step.id] || {}),
-                        [lang]: e.target.value
-                      }
-                    }))
-                  }
-                  required={step.required}
-                />
-              </div>
-            ))}
-          </>
-        ) : (
-          <>
-            <label htmlFor={step.id} className="form-label fw-semibold">{t(step.questionKey)}</label>
-            {step.type === 'select' ? (
-              <select
-                id={step.id}
-                ref={inputRef}
-                className="form-select"
-                value={answers[step.id] || ''}
-                onChange={e => handleChange(step.id, e.target.value)}
-                required={step.required}
-              >
-                <option value="">{t('selectOption')}</option>
-                {step.options.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-            ) : (
-              <input
-                id={step.id}
-                ref={inputRef}
-                type={step.type}
+        <label htmlFor={step.id} className="form-label fw-semibold">{t(step.questionKey)}</label>
+        {step.type === 'select' ? (
+          <select
+            id={step.id}
+            ref={inputRef}
+            className="form-select"
+            value={answers[step.id] || ''}
+            onChange={e => handleChange(step.id, e.target.value)}
+            required={step.required}
+          >
+            <option value="">{t('selectOption')}</option>
+            {step.options.map(o => <option key={o} value={o}>{o}</option>)}
+          </select>
+        ) : step.type === 'multilang' ? (
+          activeLanguages.map(lang => (
+            <div key={lang} className="mb-2">
+              <label className="form-label">({lang.toUpperCase()})</label>
+              <textarea
                 className="form-control"
-                value={answers[step.id] || ''}
-                onChange={e => handleChange(step.id, e.target.value)}
+                value={answers[step.id]?.[lang] || ''}
+                onChange={e => handleMultilangChange(step.id, lang, e.target.value)}
                 required={step.required}
               />
-            )}
-          </>
+            </div>
+          ))
+        ) : (
+          <input
+            id={step.id}
+            ref={inputRef}
+            type={step.type}
+            className="form-control"
+            value={answers[step.id] || ''}
+            onChange={e => handleChange(step.id, e.target.value)}
+            required={step.required}
+          />
         )}
       </div>
 
