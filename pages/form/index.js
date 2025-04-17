@@ -58,7 +58,14 @@ export default function FormPage() {
     const body = await res.json();
 
     if (res.ok) {
+      const coupleId = body.couple_id;
       if (sessionCode) {
+        await fetch('/api/remove-session-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ couple_id: coupleId })
+        });
+
         await fetch(`/api/session/${sessionCode}`, {
           method: 'DELETE',
         });
