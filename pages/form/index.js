@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { steps } from '../../lib/formSteps';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
+import SelectLanguages from '../../components/SelectLanguages';
 
 export default function FormPage() {
   const { t } = useTranslation('common');
@@ -15,6 +16,7 @@ export default function FormPage() {
   const [saveMessage, setSaveMessage] = useState('');
   const [showStart, setShowStart] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+  const [activeLanguages, setActiveLanguages] = useState(['es']);
   const inputRef = useRef(null);
 
   const visibleSteps = steps.filter(step => !step.condition || step.condition(answers));
@@ -182,6 +184,8 @@ export default function FormPage() {
         </select>
       </div>
 
+      <SelectLanguages selected={activeLanguages} onChange={setActiveLanguages} />
+
       <div className="progress mb-4">
         <div className="progress-bar bg-success" role="progressbar"
           style={{ width: `${progressPercent}%` }}
@@ -192,29 +196,57 @@ export default function FormPage() {
       </div>
 
       <div className="mb-3">
-        <label htmlFor={step.id} className="form-label fw-semibold">{t(step.questionKey)}</label>
-        {step.type === 'select' ? (
-          <select
-            id={step.id}
-            ref={inputRef}
-            className="form-select"
-            value={answers[step.id] || ''}
-            onChange={e => handleChange(step.id, e.target.value)}
-            required={step.required}
-          >
-            <option value="">{t('selectOption')}</option>
-            {step.options.map(o => <option key={o} value={o}>{o}</option>)}
-          </select>
+        {step.type === 'multilang' ? (
+          <>
+            <label className="form-label fw-semibold">{t(step.questionKey)}</label>
+            {activeLanguages.map(lang => (
+              <div key={lang} className="mb-2">
+                <label className="form-label small">({lang.toUpperCase()})</label>
+                <textarea
+                  id={`${step.id}_${lang}`}
+                  className="form-control"
+                  value={answers[step.id]?.[lang] || ''}
+                  onChange={(e) =>
+                    setAnswers(prev => ({
+                      ...prev,
+                      [step.id]: {
+                        ...(prev[step.id] || {}),
+                        [lang]: e.target.value
+                      }
+                    }))
+                  }
+                  required={step.required}
+                />
+              </div>
+            ))}
+          </>
         ) : (
-          <input
-            id={step.id}
-            ref={inputRef}
-            type={step.type}
-            className="form-control"
-            value={answers[step.id] || ''}
-            onChange={e => handleChange(step.id, e.target.value)}
-            required={step.required}
-          />
+          <>
+            <label htmlFor={step.id} className="form-label fw-semibold">{t(step.questionKey)}</label>
+            {step.type === 'select' ? (
+              <select
+                id={step.id}
+                ref={inputRef}
+                className="form-select"
+                value={answers[step.id] || ''}
+                onChange={e => handleChange(step.id, e.target.value)}
+                required={step.required}
+              >
+                <option value="">{t('selectOption')}</option>
+                {step.options.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            ) : (
+              <input
+                id={step.id}
+                ref={inputRef}
+                type={step.type}
+                className="form-control"
+                value={answers[step.id] || ''}
+                onChange={e => handleChange(step.id, e.target.value)}
+                required={step.required}
+              />
+            )}
+          </>
         )}
       </div>
 
