@@ -192,7 +192,7 @@ export default function FormPage() {
       </div>
 
       <div className="mb-3">
-        <label htmlFor={step.id} className="form-label fw-semibold">{step.question}</label>
+        <label htmlFor={step.id} className="form-label fw-semibold">{t(step.questionKey)}</label>
         {step.type === 'select' ? (
           <select
             id={step.id}
