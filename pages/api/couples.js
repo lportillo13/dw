@@ -58,48 +58,59 @@ export default async function handler(req, res) {
       count++;
     }
 
-    const { data, error } = await supabase
-      .from('couples')
-      .insert({
-        session_code,
-        nombre_de_la_novia: nombre_novia,
-        nombre_del_novio: nombre_novio,
-        correo_electronico: correo_novios,
-        telefono: telefono_novios,
-        fecha_de_la_boda: fecha_boda,
-        tipo_de_paquete: rest.tipo_de_paquete || null,
-        espacios_invitados: espacios_invitacion,
-        color_titulos: color_primario,
-        color_fondo: color_secundario,
-        lugar_de_la_ceremonia: lugar_ceremonia,
-        hora_de_la_ceremonia: hora_ceremonia,
-        lugar_de_la_recepcion: lugar_recepcion,
-        hora_de_la_recepcion: hora_recepcion,
-        mapa_de_la_ceremonia: link_ceremonia,
-        mapa_de_la_recepcion: link_recepcion,
-        tipo_de_vestimenta: codigo_vestimenta,
-        tipo_de_regalo: tipo_regalo,
-        detalle_transferencia,
-        tienda_lista_regalos,
-        texto_romantico: texto_biblico,
-        youtube_music: cancion_web,
-        info_extra: comentarios,
-        titulo_regalos: texto_regalo,
-        fecha_de_confirmacion: fecha_confirmacion,
-        solo_para_adultos: niños === 'No',
-        activar_comida_en_formulario: restriccion_alimenticia === 'Sí',
-        slug_de_invitacion: slug,
-        data: rest
-      })
-      .select('couple_id')
-      .single();
+    const payload = {
+      session_code,
+      nombre_de_la_novia: nombre_novia,
+      nombre_del_novio: nombre_novio,
+      correo_electronico: correo_novios,
+      telefono: telefono_novios,
+      fecha_de_la_boda: fecha_boda,
+      tipo_de_paquete: rest.tipo_de_paquete || null,
+      espacios_invitados: espacios_invitacion,
+      color_titulos: color_primario,
+      color_fondo: color_secundario,
+      lugar_de_la_ceremonia: lugar_ceremonia,
+      hora_de_la_ceremonia: hora_ceremonia,
+      lugar_de_la_recepcion: lugar_recepcion,
+      hora_de_la_recepcion: hora_recepcion,
+      mapa_de_la_ceremonia: link_ceremonia,
+      mapa_de_la_recepcion: link_recepcion,
+      tipo_de_vestimenta: codigo_vestimenta,
+      tipo_de_regalo: tipo_regalo,
+      detalle_transferencia,
+      tienda_lista_regalos,
+      texto_romantico: texto_biblico,
+      youtube_music: cancion_web,
+      info_extra: comentarios,
+      titulo_regalos: texto_regalo,
+      fecha_de_confirmacion: fecha_confirmacion,
+      solo_para_adultos: niños === 'No',
+      activar_comida_en_formulario: restriccion_alimenticia === 'Sí',
+      slug_de_invitacion: slug,
+      data: rest
+    };
 
-    if (error) {
-      console.error('Supabase insert error:', error);
-      return res.status(500).json({ error: error.message });
+    console.log('Insert payload:', payload);
+
+    const result = await supabase
+      .from('couples')
+      .insert(payload)
+      .select('couple_id');
+
+    console.log('Insert result:', result);
+
+    if (result.error) {
+      console.error('Supabase insert error:', result.error);
+      return res.status(500).json({ error: result.error.message });
     }
 
-    return res.status(201).json({ couple_id: data.couple_id });
+    const inserted = result.data?.[0];
+
+    if (!inserted) {
+      return res.status(500).json({ error: 'Insert succeeded but no data returned' });
+    }
+
+    return res.status(201).json({ couple_id: inserted.couple_id });
   }
 
   res.setHeader('Allow', 'POST');
