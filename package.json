@@ -20,5 +20,8 @@
     "react-quill": "^2.0.0",
     "sharp": "^0.34.1",
     "streamifier": "^0.1.1"
+  },
+  "devDependencies": {
+    "next-translate-plugin": "^2.6.2"
   }
 }
