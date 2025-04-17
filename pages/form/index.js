@@ -184,7 +184,9 @@ export default function FormPage() {
         </select>
       </div>
 
-      <SelectLanguages selected={activeLanguages} onChange={setActiveLanguages} />
+      {currentStep === 0 && (
+        <SelectLanguages selected={activeLanguages} onChange={setActiveLanguages} />
+      )}
 
       <div className="progress mb-4">
         <div className="progress-bar bg-success" role="progressbar"
