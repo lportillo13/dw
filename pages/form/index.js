@@ -47,6 +47,8 @@ export default function FormPage() {
       ? { session_code: sessionCode, ...answers }
       : { ...answers };
 
+    console.log('SUBMITTING', payload);
+
     const res = await fetch('/api/couples', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -105,11 +107,9 @@ export default function FormPage() {
       .then(body => {
         setAnswers(body.data || {});
         setSessionCode(loadCodeInput.trim());
+        setCurrentStep(0);
+        window.scrollTo(0, 0);
         setShowStart(false);
-        const firstVisible = steps.findIndex(
-          step => (body.data || {})[step.id] && (!step.condition || step.condition(body.data))
-        );
-        setCurrentStep(firstVisible >= 0 ? firstVisible : 0);
       });
   };
 
