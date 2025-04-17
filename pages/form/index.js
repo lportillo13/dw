@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { steps } from '../../lib/formSteps';
+import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 
 export default function FormPage() {
+  const { t } = useTranslation('common');
+  const { locale, push, pathname, asPath, query } = useRouter();
+
   const [answers, setAnswers] = useState({});
   const [currentStep, setCurrentStep] = useState(0);
   const [sessionCode, setSessionCode] = useState(null);
@@ -47,8 +52,6 @@ export default function FormPage() {
       ? { session_code: sessionCode, ...answers }
       : { ...answers };
 
-    console.log('SUBMITTING', payload);
-
     const res = await fetch('/api/couples', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -73,7 +76,7 @@ export default function FormPage() {
       setSubmitted(true);
     } else {
       console.error('Error submitting form:', body.error);
-      alert('Hubo un error al guardar. Intenta nuevamente.');
+      alert(t('submitError'));
     }
   };
 
@@ -94,16 +97,16 @@ export default function FormPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: answers }),
     });
-    setSaveMessage(`Tu código es: ${code}`);
+    setSaveMessage(`${t('yourCodeIs')} ${code}`);
   };
 
   const handleCopyCode = async () => {
     try {
       await navigator.clipboard.writeText(sessionCode);
-      setSaveMessage('✅ Código copiado al portapapeles');
+      setSaveMessage(t('codeCopied'));
       setTimeout(() => setSaveMessage(''), 2000);
     } catch (err) {
-      alert('No se pudo copiar. Copia manualmente: ' + sessionCode);
+      alert(`${t('copyError')} ${sessionCode}`);
     }
   };
 
@@ -129,17 +132,27 @@ export default function FormPage() {
   if (showStart) {
     return (
       <div className="container py-5 text-center" id="start-screen">
-        <h1>Formulario de Boda</h1>
+        <div className="text-end mb-4">
+          <select
+            className="form-select w-auto d-inline-block"
+            value={locale}
+            onChange={e => push({ pathname, query }, asPath, { locale: e.target.value })}
+          >
+            <option value="es">Español</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <h1>{t('formTitle')}</h1>
         <div className="d-flex justify-content-center gap-2 mt-3">
           <input
             type="text"
             className="form-control w-auto"
-            placeholder="Código existente"
+            placeholder={t('codePlaceholder')}
             value={loadCodeInput}
             onChange={e => setLoadCodeInput(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={handleLoadCode}>Cargar</button>
-          <button className="btn btn-outline-secondary" onClick={startNewForm}>Nuevo</button>
+          <button className="btn btn-primary" onClick={handleLoadCode}>{t('load')}</button>
+          <button className="btn btn-outline-secondary" onClick={startNewForm}>{t('new')}</button>
         </div>
       </div>
     );
@@ -148,8 +161,8 @@ export default function FormPage() {
   if (submitted) {
     return (
       <div className="container py-5 text-center">
-        <h2 className="text-success">🎉 ¡Gracias por completar el formulario!</h2>
-        <p>Hemos recibido toda la información. Nos pondremos en contacto pronto.</p>
+        <h2 className="text-success">🎉 {t('thankYou')}</h2>
+        <p>{t('formSubmitted')}</p>
       </div>
     );
   }
@@ -158,6 +171,17 @@ export default function FormPage() {
 
   return (
     <div className="container py-5">
+      <div className="text-end mb-4">
+        <select
+          className="form-select w-auto d-inline-block"
+          value={locale}
+          onChange={e => push({ pathname, query }, asPath, { locale: e.target.value })}
+        >
+          <option value="es">Español</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+
       <div className="progress mb-4">
         <div className="progress-bar bg-success" role="progressbar"
           style={{ width: `${progressPercent}%` }}
@@ -178,7 +202,7 @@ export default function FormPage() {
             onChange={e => handleChange(step.id, e.target.value)}
             required={step.required}
           >
-            <option value="">Seleccionar...</option>
+            <option value="">{t('selectOption')}</option>
             {step.options.map(o => <option key={o} value={o}>{o}</option>)}
           </select>
         ) : (
@@ -200,21 +224,21 @@ export default function FormPage() {
           className="btn btn-secondary"
           onClick={handlePrev}
           disabled={currentStep === 0}
-        >Anterior</button>
+        >{t('previous')}</button>
         <button
           type="button"
           className="btn btn-primary"
           onClick={handleNext}
           disabled={!answers[step.id]}
-        >{currentStep < visibleSteps.length - 1 ? 'Siguiente' : 'Enviar'}</button>
+        >{currentStep < visibleSteps.length - 1 ? t('next') : t('submit')}</button>
       </div>
 
       <div className="text-center mt-3">
-        <button type="button" className="btn btn-outline-info me-2" onClick={handleSave}>Guardar y continuar después</button>
+        <button type="button" className="btn btn-outline-info me-2" onClick={handleSave}>{t('save')}</button>
         {sessionCode && (
           <span className="d-inline-flex align-items-center">
             <code className="me-2">{sessionCode}</code>
-            <button className="btn btn-sm btn-outline-secondary" onClick={handleCopyCode}>Copiar</button>
+            <button className="btn btn-sm btn-outline-secondary" onClick={handleCopyCode}>{t('copy')}</button>
           </span>
         )}
         {saveMessage && <p className="text-success mt-2">{saveMessage}</p>}
