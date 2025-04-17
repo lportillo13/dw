@@ -14,6 +14,44 @@
     "yourCodeIs": "Your code is:",
     "codeCopied": "✅ Code copied to clipboard",
     "copyError": "Could not copy. Please copy manually:",
-    "submitError": "There was an error saving. Please try again."
+    "submitError": "There was an error saving. Please try again.",
+    
+    "form": {
+      "fecha_boda": "What is your wedding date?",
+      "lugar_ceremonia": "Where will the ceremony take place?",
+      "hora_ceremonia": "What time does the ceremony start?",
+      "misma_ubicacion": "Are the ceremony and reception at the same location?",
+      "lugar_recepcion": "Where will the reception be?",
+      "hora_recepcion": "What time does the reception start?",
+      "fecha_entrega_propuesta": "By when would you like to receive the first design proposal?",
+      "nombre_novia": "Full name of the bride as you'd like it to appear:",
+      "nombre_novio": "Full name of the groom as you'd like it to appear:",
+      "nombre_orden": "Which name should appear first on the invitation?",
+      "correo_novios": "Contact email address:",
+      "telefono_novios": "Contact phone number:",
+      "pais": "Which country are you requesting the service from?",
+      "wedding_planner": "Do you have a wedding planner? If so, please provide their name or agency:",
+      "color_primario": "Choose the primary color for the invitation and website:",
+      "color_secundario": "Choose the secondary color for the invitation and website:",
+      "link_diseño": "If you have a reference design, paste the link here (Pinterest, Drive, etc.):",
+      "texto_biblico": "Would you like to include a biblical verse, quote, or phrase?",
+      "cancion_web": "What song would you like to play on the website? (YouTube link):",
+      "comentarios": "Any additional comments you would like to add?",
+      "link_ceremonia": "Google Maps or Waze link for the ceremony:",
+      "link_recepcion": "Google Maps or Waze link for the reception:",
+      "codigo_vestimenta": "What is the dress code for the guests?",
+      "recomendaciones_vestimenta": "Would you like to include dress recommendations?",
+      "link_pinterest_vestimenta": "Do you have any link with dress examples (Pinterest, etc.)?",
+      "restricciones_vestimenta": "Are there any clothing restrictions guests should be aware of?",
+      "tipo_regalo": "What kind of gifts do you prefer?",
+      "detalle_transferencia": "Bank transfer details:",
+      "tienda_lista_regalos": "Store or link for the gift registry:",
+      "detalle_otro_regalo": "Please describe the type of gift:",
+      "texto_regalo": "What message would you like to include to request the gift?",
+      "niños": "Are children invited to your wedding?",
+      "fecha_confirmacion": "By what date would you like to receive RSVPs?",
+      "restriccion_alimenticia": "Would you like to include a section for food restrictions?",
+      "espacios_invitacion": "How many name entry spaces should be on the invitation?"
+    }
   }
-  
+    
