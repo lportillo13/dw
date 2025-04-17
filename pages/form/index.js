@@ -37,36 +37,34 @@ export default function FormPage() {
   const handleNext = async () => {
     const step = visibleSteps[currentStep];
     if (!answers[step.id]) return;
-  
+
     if (currentStep < visibleSteps.length - 1) {
       setCurrentStep(i => i + 1);
-    } else {
-      // ✅ Make sure sessionCode is defined
-      if (!sessionCode) {
-        alert('El código de sesión no está disponible. Por favor vuelve a cargar tu progreso con el código.');
-        return;
-      }
-  
-      // ✅ Submit to couples
-      const res = await fetch('/api/couples', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ session_code: sessionCode, ...answers }),
-      });
-  
-      const body = await res.json();
-  
-      if (res.ok) {
-        // ✅ Remove the session since form is finalized
+      return;
+    }
+
+    const payload = sessionCode
+      ? { session_code: sessionCode, ...answers }
+      : { ...answers };
+
+    const res = await fetch('/api/couples', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const body = await res.json();
+
+    if (res.ok) {
+      if (sessionCode) {
         await fetch(`/api/session/${sessionCode}`, {
           method: 'DELETE',
         });
-  
-        setSubmitted(true);
-      } else {
-        console.error('Error submitting form:', body.error);
-        alert('Hubo un error al guardar. Intenta nuevamente.');
       }
+      setSubmitted(true);
+    } else {
+      console.error('Error submitting form:', body.error);
+      alert('Hubo un error al guardar. Intenta nuevamente.');
     }
   };
 

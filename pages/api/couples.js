@@ -3,7 +3,7 @@ import { supabase } from '../../lib/supabase';
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const {
-      session_code,
+      session_code = null,
       fecha_boda,
       lugar_ceremonia,
       hora_ceremonia,
@@ -42,7 +42,6 @@ export default async function handler(req, res) {
       ...rest
     } = req.body;
 
-    // Generate base slug from initials
     const first = (nombre_novia || '').trim().charAt(0).toLowerCase();
     const second = (nombre_novio || '').trim().charAt(0).toLowerCase();
     let baseSlug = `${first}${second}` || 'pareja';
