@@ -42,6 +42,23 @@ export default async function handler(req, res) {
       ...rest
     } = req.body;
 
+    // Generate base slug from initials
+    const first = (nombre_novia || '').trim().charAt(0).toLowerCase();
+    const second = (nombre_novio || '').trim().charAt(0).toLowerCase();
+    let baseSlug = `${first}${second}` || 'pareja';
+    let slug = baseSlug;
+    let count = 1;
+    while (true) {
+      const { data: existing } = await supabase
+        .from('couples')
+        .select('slug_de_invitacion')
+        .eq('slug_de_invitacion', slug)
+        .single();
+      if (!existing) break;
+      slug = `${baseSlug}${count}`;
+      count++;
+    }
+
     const { data, error } = await supabase
       .from('couples')
       .insert({
@@ -72,6 +89,7 @@ export default async function handler(req, res) {
         fecha_de_confirmacion: fecha_confirmacion,
         solo_para_adultos: niños === 'No',
         activar_comida_en_formulario: restriccion_alimenticia === 'Sí',
+        slug_de_invitacion: slug,
         data: rest
       })
       .select('couple_id')
