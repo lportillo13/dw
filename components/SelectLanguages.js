@@ -15,7 +15,7 @@ export default function SelectLanguages({ selected, onChange }) {
     };
   
     return (
-      <div className="mb-4 justify-content-center">
+      <div className="mb-4 justify-items-center">
         <label className="form-label fw-semibold">Selecciona los idiomas en los que deseas responder</label>
         <div className="d-flex flex-wrap gap-3">
           {languages.map(({ code, label }) => (

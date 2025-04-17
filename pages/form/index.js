@@ -59,9 +59,11 @@ export default function FormPage() {
       return;
     }
 
-    const payload = sessionCode
-      ? { session_code: sessionCode, ...answers }
-      : { ...answers };
+    const payload = {
+      session_code: sessionCode,
+      idiomas: activeLanguages,
+      ...answers
+    };
 
     const res = await fetch('/api/couples', {
       method: 'POST',

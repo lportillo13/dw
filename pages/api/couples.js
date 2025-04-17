@@ -87,6 +87,7 @@ export default async function handler(req, res) {
       solo_para_adultos: niños === 'No',
       activar_comida_en_formulario: restriccion_alimenticia === 'Sí',
       slug_de_invitacion: slug,
+      idiomas: req.body.idiomas,
       data: rest
     };
 
