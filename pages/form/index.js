@@ -37,22 +37,35 @@ export default function FormPage() {
   const handleNext = async () => {
     const step = visibleSteps[currentStep];
     if (!answers[step.id]) return;
+  
     if (currentStep < visibleSteps.length - 1) {
       setCurrentStep(i => i + 1);
     } else {
+      // ✅ Make sure sessionCode is defined
+      if (!sessionCode) {
+        alert('El código de sesión no está disponible. Por favor vuelve a cargar tu progreso con el código.');
+        return;
+      }
+  
+      // ✅ Submit to couples
       const res = await fetch('/api/couples', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ session_code: sessionCode, ...answers }),
       });
+  
       const body = await res.json();
+  
       if (res.ok) {
-        if (sessionCode) {
-          await fetch(`/api/session/${sessionCode}`, { method: 'DELETE' });
-        }
+        // ✅ Remove the session since form is finalized
+        await fetch(`/api/session/${sessionCode}`, {
+          method: 'DELETE',
+        });
+  
         setSubmitted(true);
       } else {
-        console.error(body.error);
+        console.error('Error submitting form:', body.error);
+        alert('Hubo un error al guardar. Intenta nuevamente.');
       }
     }
   };
@@ -77,8 +90,14 @@ export default function FormPage() {
     setSaveMessage(`Tu código es: ${code}`);
   };
 
-  const handleCopyCode = () => {
-    if (sessionCode) navigator.clipboard.writeText(sessionCode);
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(sessionCode);
+      setSaveMessage('✅ Código copiado al portapapeles');
+      setTimeout(() => setSaveMessage(''), 2000);
+    } catch (err) {
+      alert('No se pudo copiar. Copia manualmente: ' + sessionCode);
+    }
   };
 
   const handleLoadCode = () => {
