@@ -134,7 +134,16 @@
     "adultsOnly": "¿Solo para adultos?",
     "enableFoodOption": "Activar Comida en Formulario",
     "adultsText": "Adultos Texto",
-    "adultsTextEnglish": "Adultos Texto Inglés"
+    "adultsTextEnglish": "Adultos Texto Inglés",
+    "titlesText": "Títulos & Texto",
+    "confirmButton": "Botón Confirmar",
+    "introTitle": "Título Intro Invitación",
+    "introTitlePlural": "Título Intro Invitación Plural",
+    "dressCodeTitle": "Título Vestimenta",
+    "giftsTitle": "Título Regalos",
+    "accommodationTitle": "Título Hospedaje",
+    "confirmationTitle": "Título Confirmación",
+    "activateIcon": "Activar Icono"
   },
 
   "buttons": {

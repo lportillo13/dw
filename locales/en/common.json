@@ -135,7 +135,16 @@
     "adultsOnly": "Adults Only?",
     "enableFoodOption": "Enable Food Restrictions in Form",
     "adultsText": "Adults Text",
-    "adultsTextEnglish": "Adults Text (English)"
+    "adultsTextEnglish": "Adults Text (English)",
+    "titlesText": "Titles & Text",
+    "confirmButton": "Confirm Button",
+    "introTitle": "Intro Title",
+    "introTitlePlural": "Intro Title (Plural)",
+    "dressCodeTitle": "Dress Code Title",
+    "giftsTitle": "Gifts Title",
+    "accommodationTitle": "Accommodation Title",
+    "confirmationTitle": "Confirmation Title",
+    "activateIcon": "Activate Icon"
   },
 
   "buttons": {
