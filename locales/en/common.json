@@ -58,6 +58,29 @@
     "dashboard": "Couple's Dashboard"
   },
 
+  "sections": {
+    "activateSections": "Activate Sections",
+    "isEvent": "Is event",
+    "activateEnglish": "Activate English",
+    "activateHero": "Activate hero section",
+    "activateSong": "Activate song",
+    "activateLogo": "Activate logo",
+    "activateCounter": "Activate counter",
+    "activateInitialText": "Activate initial text",
+    "activateRomanticText": "Activate romantic text",
+    "activateCeremony": "Activate ceremony",
+    "activateReception": "Activate reception",
+    "activateDressCode": "Activate dress code",
+    "activateGifts": "Activate gifts",
+    "activateAccommodation": "Activate accommodation",
+    "activateExtraInfo": "Activate extra info",
+    "activateGallery": "Activate gallery",
+    "activateConfirmation": "Activate confirmation",
+    "activateCalendar": "Activate calendar",
+    "activateHashtag": "Activate hashtag",
+    "activateRsvpButton": "Activate RSVP button"
+  },
+
   "buttons": {
     "saveChanges": "Save Changes"
   }

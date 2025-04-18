@@ -57,6 +57,29 @@
   "titles": {
     "dashboard": "Panel de Pareja"
   },
+  
+  "sections": {
+    "activateSections": "Activar Secciones",
+    "isEvent": "Es evento",
+    "activateEnglish": "Activar inglés",
+    "activateHero": "Activar hero",
+    "activateSong": "Activar canción",
+    "activateLogo": "Activar logo",
+    "activateCounter": "Activar contador",
+    "activateInitialText": "Activar texto inicial",
+    "activateRomanticText": "Activar texto romántico",
+    "activateCeremony": "Activar ceremonia",
+    "activateReception": "Activar recepción",
+    "activateDressCode": "Activar vestimenta",
+    "activateGifts": "Activar regalo",
+    "activateAccommodation": "Activar hospedaje",
+    "activateExtraInfo": "Activar info extra",
+    "activateGallery": "Activar galería",
+    "activateConfirmation": "Activar confirmación",
+    "activateCalendar": "Activar calendario",
+    "activateHashtag": "Activar hashtag",
+    "activateRsvpButton": "Activar botón RSVP"
+  },
 
   "buttons": {
     "saveChanges": "Guardar Cambios"

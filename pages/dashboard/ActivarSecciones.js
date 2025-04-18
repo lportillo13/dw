@@ -1,12 +1,21 @@
 import React from 'react';
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
 
-export default function ActivarSecciones({ formData = {}, handleChange }) {
+export default function ActivarSecciones({
+  formData = {},
+  handleChange,
+  lang
+}) {
+  const common = lang === 'es' ? esCommon : enCommon;
+  const labels = common.sections;
+
   return (
     <div>
-      <h3>Activar Secciones</h3>
-      {/** Es Evento **/}
+      <h3>{labels.activateSections}</h3>
+
       <div className="form-group">
-        <label>Es Evento</label>
+        <label>{labels.isEvent}</label>
         <input
           type="checkbox"
           name="es_evento"
@@ -15,9 +24,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Inglés **/}
       <div className="form-group">
-        <label>Activar Inglés</label>
+        <label>{labels.activateEnglish}</label>
         <input
           type="checkbox"
           name="activar_ingles"
@@ -26,9 +34,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Hero **/}
       <div className="form-group">
-        <label>Activar Hero</label>
+        <label>{labels.activateHero}</label>
         <input
           type="checkbox"
           name="activar_hero"
@@ -37,9 +44,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Canción **/}
       <div className="form-group">
-        <label>Activar Canción</label>
+        <label>{labels.activateSong}</label>
         <input
           type="checkbox"
           name="activar_cancion"
@@ -48,9 +54,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Logo **/}
       <div className="form-group">
-        <label>Activar Logo</label>
+        <label>{labels.activateLogo}</label>
         <input
           type="checkbox"
           name="activar_logo"
@@ -59,9 +64,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Contador **/}
       <div className="form-group">
-        <label>Activar Contador</label>
+        <label>{labels.activateCounter}</label>
         <input
           type="checkbox"
           name="activar_contador"
@@ -70,9 +74,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Texto Inicial **/}
       <div className="form-group">
-        <label>Activar Texto Inicial</label>
+        <label>{labels.activateInitialText}</label>
         <input
           type="checkbox"
           name="activar_texto_inicial"
@@ -81,9 +84,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Texto Romántico **/}
       <div className="form-group">
-        <label>Activar Texto Romántico</label>
+        <label>{labels.activateRomanticText}</label>
         <input
           type="checkbox"
           name="activar_texto_romantico"
@@ -92,9 +94,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Ceremonia **/}
       <div className="form-group">
-        <label>Activar Ceremonia</label>
+        <label>{labels.activateCeremony}</label>
         <input
           type="checkbox"
           name="activar_ceremonia"
@@ -103,9 +104,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Recepción **/}
       <div className="form-group">
-        <label>Activar Recepción</label>
+        <label>{labels.activateReception}</label>
         <input
           type="checkbox"
           name="activar_recepcion"
@@ -114,9 +114,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Vestimenta **/}
       <div className="form-group">
-        <label>Activar Vestimenta</label>
+        <label>{labels.activateDressCode}</label>
         <input
           type="checkbox"
           name="activar_vestimenta"
@@ -125,9 +124,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Regalo **/}
       <div className="form-group">
-        <label>Activar Regalo</label>
+        <label>{labels.activateGifts}</label>
         <input
           type="checkbox"
           name="activar_regalo"
@@ -136,9 +134,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Hospedaje **/}
       <div className="form-group">
-        <label>Activar Hospedaje</label>
+        <label>{labels.activateAccommodation}</label>
         <input
           type="checkbox"
           name="activar_hospedaje"
@@ -147,9 +144,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Info Extra **/}
       <div className="form-group">
-        <label>Activar Info Extra</label>
+        <label>{labels.activateExtraInfo}</label>
         <input
           type="checkbox"
           name="activar_info_extra"
@@ -158,9 +154,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Galería **/}
       <div className="form-group">
-        <label>Activar Galería</label>
+        <label>{labels.activateGallery}</label>
         <input
           type="checkbox"
           name="activar_galeria"
@@ -169,9 +164,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Confirmación **/}
       <div className="form-group">
-        <label>Activar Confirmación</label>
+        <label>{labels.activateConfirmation}</label>
         <input
           type="checkbox"
           name="activar_confirmacion"
@@ -180,9 +174,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Calendario **/}
       <div className="form-group">
-        <label>Activar Calendario</label>
+        <label>{labels.activateCalendar}</label>
         <input
           type="checkbox"
           name="activar_calendario"
@@ -191,9 +184,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar Hashtag **/}
       <div className="form-group">
-        <label>Activar Hashtag</label>
+        <label>{labels.activateHashtag}</label>
         <input
           type="checkbox"
           name="activar_hashtag"
@@ -202,9 +194,8 @@ export default function ActivarSecciones({ formData = {}, handleChange }) {
         />
       </div>
 
-      {/** Activar RSVP Button **/}
       <div className="form-group">
-        <label>Activar RSVP Button</label>
+        <label>{labels.activateRsvpButton}</label>
         <input
           type="checkbox"
           name="activar_rsvp_button"
