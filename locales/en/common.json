@@ -98,7 +98,18 @@
     "receptionMap": "Reception map (URL)",  
     "dressTitle": "Dress code",
     "dressType": "Type of dress code",
-    "dressTypeEnglish": "Type of dress code [EN]"
+    "dressTypeEnglish": "Type of dress code [EN]",  
+    "webSettings": "Web Settings",
+    "weddingDateText": "Wedding Date (text)",
+    "nameOrder": "Which name should appear first?",
+    "groom": "Groom",
+    "bride": "Bride",
+    "heroText": "Hero Text",
+    "initialLogo": "Initial Logo",
+    "initialMedia": "Initial Media",
+    "mainPhoto": "Main Photo",
+    "initialVideo": "Initial Video (URL)",
+    "initialText": "Initial Text"
   },
 
   "buttons": {

@@ -97,7 +97,18 @@
     "receptionMap": "Mapa de la recepción (URL)",  
     "dressTitle": "Vestimenta",
     "dressType": "Tipo de vestimenta",
-    "dressTypeEnglish": "Tipo de vestimenta Inglés"
+    "dressTypeEnglish": "Tipo de vestimenta Inglés",
+    "webSettings": "Ajustes de la Web",
+    "weddingDateText": "Fecha de la Boda (texto)",
+    "nameOrder": "Nombre que aparezca primero",
+    "groom": "Novio",
+    "bride": "Novia",
+    "heroText": "Texto Hero",
+    "initialLogo": "Logo Inicial",
+    "initialMedia": "Media Inicial",
+    "mainPhoto": "Foto Principal",
+    "initialVideo": "Video Inicial (URL)",
+    "initialText": "Texto Inicial"
   },
 
   "buttons": {

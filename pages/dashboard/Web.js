@@ -1,62 +1,58 @@
 import React from 'react';
 import CloudImageUploader from './CloudImageUploader';
 
-export default function Web({ formData = {}, handleChange, coupleId }) {
+export default function Web({
+  formData = {},
+  handleChange,
+  handleJsonbChange,
+  coupleId,
+  lang
+}) {
+  const idiomas =
+    formData.idiomas ||
+    Object.keys(formData.titulo_del_evento || { es: '', en: '' });
+
   return (
     <div>
       <h3>Web Settings</h3>
 
-      {/* Título del Evento */}
+      {/* Título del Evento (jsonb) */}
       <div className="form-group">
         <label>Título del Evento</label>
-        <input
-          type="text"
-          name="titulo_del_evento"
-          className="form-control"
-          value={formData.titulo_del_evento || ''}
-          onChange={handleChange}
-        />
+        {idiomas.map((code) => (
+          <input
+            key={`titulo_del_evento_${code}`}
+            type="text"
+            className="form-control mb-2"
+            placeholder={`Título del Evento [${code.toUpperCase()}]`}
+            value={formData.titulo_del_evento?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('titulo_del_evento', e.target.value, code)
+            }
+          />
+        ))}
       </div>
 
-      {/* Título del Evento Inglés (conditional) */}
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Título del Evento Inglés</label>
-          <input
-            type="text"
-            name="titulo_del_evento_ingles"
-            className="form-control"
-            value={formData.titulo_del_evento_ingles || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
-      {/* Fecha de la Boda texto */}
+      {/* Fecha de la Boda texto (jsonb) */}
       <div className="form-group">
         <label>Fecha de la Boda texto</label>
-        <input
-          type="text"
-          name="fecha_de_la_boda_texto"
-          className="form-control"
-          value={formData.fecha_de_la_boda_texto || ''}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Fecha de la Boda texto Inglés (conditional) */}
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Fecha de la Boda texto Inglés</label>
+        {idiomas.map((code) => (
           <input
+            key={`fecha_de_la_boda_texto_${code}`}
             type="text"
-            name="fecha_de_la_boda_texto_ingles"
-            className="form-control"
-            value={formData.fecha_de_la_boda_texto_ingles || ''}
-            onChange={handleChange}
+            className="form-control mb-2"
+            placeholder={`Fecha de la Boda [${code.toUpperCase()}]`}
+            value={formData.fecha_de_la_boda_texto?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange(
+                'fecha_de_la_boda_texto',
+                e.target.value,
+                code
+              )
+            }
           />
-        </div>
-      )}
+        ))}
+      </div>
 
       {/* Nombre que aparezca primero */}
       <div className="form-group">
@@ -73,31 +69,22 @@ export default function Web({ formData = {}, handleChange, coupleId }) {
         </select>
       </div>
 
-      {/* Texto Hero */}
+      {/* Texto Hero (jsonb) */}
       <div className="form-group">
         <label>Texto Hero</label>
-        <input
-          type="text"
-          name="texto_hero"
-          className="form-control"
-          value={formData.texto_hero || ''}
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Texto Hero Inglés (conditional) */}
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Texto Hero Inglés</label>
+        {idiomas.map((code) => (
           <input
+            key={`texto_hero_${code}`}
             type="text"
-            name="texto_hero_ingles"
-            className="form-control"
-            value={formData.texto_hero_ingles || ''}
-            onChange={handleChange}
+            className="form-control mb-2"
+            placeholder={`Texto Hero [${code.toUpperCase()}]`}
+            value={formData.texto_hero?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('texto_hero', e.target.value, code)
+            }
           />
-        </div>
-      )}
+        ))}
+      </div>
 
       {/* Logo Inicial (conditional) */}
       {formData.activar_logo && (
@@ -111,7 +98,7 @@ export default function Web({ formData = {}, handleChange, coupleId }) {
         />
       )}
 
-      {/* Media Inicial (conditional on Hero) */}
+      {/* Media Inicial */}
       {formData.activar_hero && (
         <div className="form-group">
           <label>Media Inicial</label>
@@ -129,7 +116,7 @@ export default function Web({ formData = {}, handleChange, coupleId }) {
         </div>
       )}
 
-      {/* Foto Principal (if media photo) */}
+      {/* Foto Principal */}
       {formData.activar_hero && formData.media_inicial === 'foto' && (
         <CloudImageUploader
           name="foto_principal"
@@ -141,7 +128,7 @@ export default function Web({ formData = {}, handleChange, coupleId }) {
         />
       )}
 
-      {/* Video Inicial (if media video) */}
+      {/* Video Inicial */}
       {formData.activar_hero && formData.media_inicial === 'video' && (
         <div className="form-group">
           <label>Video Inicial (URL)</label>
@@ -156,29 +143,21 @@ export default function Web({ formData = {}, handleChange, coupleId }) {
         </div>
       )}
 
-      {/* Texto Inicial (conditional) */}
+      {/* Texto Inicial (jsonb) */}
       {formData.activar_texto_inicial && (
         <div className="form-group">
           <label>Texto Inicial</label>
-          <textarea
-            name="texto_inicial"
-            className="form-control"
-            value={formData.texto_inicial || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
-      {/* Texto Inicial Inglés (conditional) */}
-      {formData.activar_texto_inicial && formData.activar_ingles && (
-        <div className="form-group">
-          <label>Texto Inicial Inglés</label>
-          <textarea
-            name="texto_inicial_ingles"
-            className="form-control"
-            value={formData.texto_inicial_ingles || ''}
-            onChange={handleChange}
-          />
+          {idiomas.map((code) => (
+            <textarea
+              key={`texto_inicial_${code}`}
+              className="form-control mb-2"
+              placeholder={`Texto Inicial [${code.toUpperCase()}]`}
+              value={formData.texto_inicial?.[code] || ''}
+              onChange={(e) =>
+                handleJsonbChange('texto_inicial', e.target.value, code)
+              }
+            />
+          ))}
         </div>
       )}
     </div>
