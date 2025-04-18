@@ -1,53 +1,58 @@
 import React from 'react';
 import CloudImageUploader from './CloudImageUploader';
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
 
-export default function RSVP({ formData = {}, handleChange, coupleId }) {
+export default function RSVP({ formData = {}, handleChange, handleJsonbChange, coupleId, lang }) {
+  const common = lang === 'es' ? esCommon : enCommon;
+  const labels = common.sections;
+  const idiomas = formData.idiomas || Object.keys(formData.tipo_de_regalo || { es: '', en: '' });
+
   return (
     <div>
-      <h3>RSVP</h3>
+      <h3>{labels.rsvpTitle}</h3>
 
-      {/* Tipo de Regalo (conditional on activar_regalo) */}
+      {/* Tipo de Regalo (jsonb, conditional) */}
       {formData.activar_regalo && (
         <div className="form-group">
-          <label>Tipo de Regalo</label>
-          <textarea
-            name="tipo_de_regalo"
-            className="form-control"
-            value={formData.tipo_de_regalo || ''}
-            onChange={handleChange}
-          />
+          <label>{labels.giftType}</label>
+          {idiomas.map((code) => (
+            <textarea
+              key={`tipo_de_regalo_${code}`}
+              name="tipo_de_regalo"
+              className="form-control mb-2"
+              placeholder={`${labels.giftType} [${code.toUpperCase()}]`}
+              value={formData.tipo_de_regalo?.[code] || ''}
+              onChange={(e) =>
+                handleJsonbChange('tipo_de_regalo', e.target.value, code)
+              }
+            />
+          ))}
         </div>
       )}
 
-      {/* Tipo de Regalo Inglés (conditional on activar_regalo and activar_ingles) */}
-      {formData.activar_regalo && formData.activar_ingles && (
-        <div className="form-group">
-          <label>Tipo de Regalo Inglés</label>
-          <textarea
-            name="tipo_de_regalo_ingles"
-            className="form-control"
-            value={formData.tipo_de_regalo_ingles || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
-      {/* Fecha de confirmación (wysiwyg) */}
+      {/* Fecha de confirmación (jsonb) */}
       <div className="form-group">
-        <label>Fecha de confirmación</label>
-        <textarea
-          name="fecha_de_confirmacion"
-          className="form-control"
-          value={formData.fecha_de_confirmacion || ''}
-          onChange={handleChange}
-        />
+        <label>{labels.confirmationDate}</label>
+        {idiomas.map((code) => (
+          <textarea
+            key={`fecha_de_confirmacion_${code}`}
+            name="fecha_de_confirmacion"
+            className="form-control mb-2"
+            placeholder={`${labels.confirmationDate} [${code.toUpperCase()}]`}
+            value={formData.fecha_de_confirmacion?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('fecha_de_confirmacion', e.target.value, code)
+            }
+          />
+        ))}
       </div>
 
-      {/* Imagen RSVP (conditional on activar_confirmacion) */}
+      {/* Imagen RSVP (conditional) */}
       {formData.activar_confirmacion && (
         <CloudImageUploader
           name="imagen_rsvp"
-          label="Imagen RSVP"
+          label={labels.rsvpImage}
           value={formData.imagen_rsvp || ''}
           onChange={handleChange}
           folder="rsvp"
@@ -55,9 +60,9 @@ export default function RSVP({ formData = {}, handleChange, coupleId }) {
         />
       )}
 
-      {/* Solo para adultos? */}
+      {/* Solo para adultos */}
       <div className="form-group">
-        <label>¿Solo para adultos?</label>
+        <label>{labels.adultsOnly}</label>
         <input
           type="checkbox"
           name="solo_para_adultos"
@@ -68,7 +73,7 @@ export default function RSVP({ formData = {}, handleChange, coupleId }) {
 
       {/* Activar Comida en Formulario */}
       <div className="form-group">
-        <label>Activar Comida en Formulario</label>
+        <label>{labels.enableFoodOption}</label>
         <input
           type="checkbox"
           name="activar_comida_en_formulario"
@@ -77,29 +82,22 @@ export default function RSVP({ formData = {}, handleChange, coupleId }) {
         />
       </div>
 
-      {/* Adultos Texto (conditional on solo_para_adultos) */}
+      {/* Adultos Texto (jsonb, conditional) */}
       {formData.solo_para_adultos && (
         <div className="form-group">
-          <label>Adultos Texto</label>
-          <textarea
-            name="adultos_texto"
-            className="form-control"
-            value={formData.adultos_texto || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
-      {/* Adultos Texto Inglés (conditional on solo_para_adultos and activar_ingles) */}
-      {formData.solo_para_adultos && formData.activar_ingles && (
-        <div className="form-group">
-          <label>Adultos Texto Inglés</label>
-          <textarea
-            name="adultos_texto_ingles"
-            className="form-control"
-            value={formData.adultos_texto_ingles || ''}
-            onChange={handleChange}
-          />
+          <label>{labels.adultsText}</label>
+          {idiomas.map((code) => (
+            <textarea
+              key={`adultos_texto_${code}`}
+              name="adultos_texto"
+              className="form-control mb-2"
+              placeholder={`${labels.adultsText} [${code.toUpperCase()}]`}
+              value={formData.adultos_texto?.[code] || ''}
+              onChange={(e) =>
+                handleJsonbChange('adultos_texto', e.target.value, code)
+              }
+            />
+          ))}
         </div>
       )}
     </div>
