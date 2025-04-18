@@ -74,12 +74,14 @@ export default function DashboardPage() {
     }));
   };
 
-  const handleJsonbChange = (fieldName, value) => {
+// now accepts (fieldName, value, code) so you can edit any language key
+  const handleJsonbChange = (fieldName, value, code) => {
+    const langKey = code || lang;
     setFormData((prev) => ({
       ...prev,
       [fieldName]: {
         ...(prev[fieldName] || {}),
-        [lang]: value,
+        [langKey]: value,
       },
     }));
   };

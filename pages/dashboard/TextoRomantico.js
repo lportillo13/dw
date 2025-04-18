@@ -2,10 +2,24 @@
 import React from 'react';
 import CloudImageUploader from './CloudImageUploader';
 
-export default function TextoRomantico({ formData = {}, handleChange, coupleId }) {
+export default function TextoRomantico({
+  formData = {},
+  handleChange,
+  handleJsonbChange,
+  coupleId
+}) {
+  // You might store an array of active languages in formData.idiomas;
+  // otherwise we fall back to whatever keys exist in texto_romantico.
+  const languages =
+    formData.idiomas ||
+    Object.keys(formData.texto_romantico || { es: '', en: '' });
+
+  const romanticTexts = formData.texto_romantico || {};
+
   return (
     <div>
       <h3>Texto Romántico</h3>
+
       <div className="form-group">
         <label>Activar Texto Sobre Imagen</label>
         <input
@@ -15,39 +29,38 @@ export default function TextoRomantico({ formData = {}, handleChange, coupleId }
           onChange={handleChange}
         />
       </div>
+
       <div className="form-group">
         <label>Fondo Texto Romántico</label>
         <CloudImageUploader
           name="fondo_texto_biblico"
-          label=""
           value={formData.fondo_texto_biblico || ''}
           onChange={handleChange}
           folder="texto_romantico"
           coupleId={coupleId}
         />
       </div>
+
       <div className="form-group">
         <label>Texto Romántico (WYSIWYG)</label>
-        <textarea
-          name="texto_romantico"
-          className="form-control"
-          value={formData.texto_romantico || ''}
-          onChange={handleChange}
-          placeholder="Enter the romantic message here..."
-        />
+
+        {languages.map((code) => (
+          <div className="mt-2" key={code}>
+            <label>
+              Texto Romántico [{code.toUpperCase()}]
+            </label>
+            <textarea
+              name="texto_romantico"
+              className="form-control"
+              value={romanticTexts[code] || ''}
+              onChange={(e) =>
+                handleJsonbChange('texto_romantico', e.target.value, code)
+              }
+              placeholder={`Enter the romantic message for ${code}…`}
+            />
+          </div>
+        ))}
       </div>
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Texto Romántico Inglés (WYSIWYG)</label>
-          <textarea
-            name="texto_romantico_ingles"
-            className="form-control"
-            value={formData.texto_romantico_ingles || ''}
-            onChange={handleChange}
-            placeholder="Enter the romantic message in English..."
-          />
-        </div>
-      )}
     </div>
   );
 }
