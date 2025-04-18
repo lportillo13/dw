@@ -31,21 +31,16 @@ export default function RSVP({ formData = {}, handleChange, handleJsonbChange, c
         </div>
       )}
 
-      {/* Fecha de confirmación (jsonb) */}
+      {/* Fecha de confirmación (date field) */}
       <div className="form-group">
         <label>{labels.confirmationDate}</label>
-        {idiomas.map((code) => (
-          <textarea
-            key={`fecha_de_confirmacion_${code}`}
-            name="fecha_de_confirmacion"
-            className="form-control mb-2"
-            placeholder={`${labels.confirmationDate} [${code.toUpperCase()}]`}
-            value={formData.fecha_de_confirmacion?.[code] || ''}
-            onChange={(e) =>
-              handleJsonbChange('fecha_de_confirmacion', e.target.value, code)
-            }
-          />
-        ))}
+        <input
+          type="date"
+          name="fecha_de_confirmacion"
+          className="form-control"
+          value={formData.fecha_de_confirmacion || ''}
+          onChange={handleChange}
+        />
       </div>
 
       {/* Imagen RSVP (conditional) */}
