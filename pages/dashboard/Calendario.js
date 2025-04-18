@@ -1,24 +1,29 @@
-// Calendario.js
 import React from 'react';
 import CloudImageUploader from './CloudImageUploader';
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
 
-export default function Calendario({ formData = {}, handleChange, coupleId }) {
+export default function Calendario({ formData = {}, handleChange, lang, coupleId }) {
+  const common = lang === 'es' ? esCommon : enCommon;
+  const labels = common.sections;
+
   return (
     <div>
-      <h3>Calendario</h3>
+      <h3>{labels.calendarTitle}</h3>
+
       <div className="form-group">
-        <label>Foto Calendario</label>
+        <label>{labels.calendarPhoto}</label>
         <CloudImageUploader
           name="foto_calendario"
-          label=""
           value={formData.foto_calendario || ''}
           onChange={handleChange}
           folder="calendario"
           coupleId={coupleId}
         />
       </div>
+
       <div className="form-group">
-        <label>Texto Calendario (HTML)</label>
+        <label>{labels.calendarText}</label>
         <textarea
           name="texto_calendario"
           className="form-control"
@@ -26,9 +31,10 @@ export default function Calendario({ formData = {}, handleChange, coupleId }) {
           onChange={handleChange}
         />
       </div>
+
       {formData.activar_ingles && (
         <div className="form-group">
-          <label>Texto Calendario Inglés (HTML)</label>
+          <label>{labels.calendarTextEnglish}</label>
           <textarea
             name="texto_calendario_ingles"
             className="form-control"

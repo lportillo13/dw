@@ -78,7 +78,26 @@
     "activateConfirmation": "Activar confirmación",
     "activateCalendar": "Activar calendario",
     "activateHashtag": "Activar hashtag",
-    "activateRsvpButton": "Activar botón RSVP"
+    "activateRsvpButton": "Activar botón RSVP",  "calendarTitle": "Calendario",
+    "calendarPhoto": "Foto calendario",
+    "calendarText": "Texto calendario (HTML)",
+    "calendarTextEnglish": "Texto calendario Inglés (HTML)",  
+    "eventTitle": "Evento",
+    "eventWeddingLocation": "Ubicación de la boda",
+    "eventPlace": "Lugar del evento",
+    "eventTime": "Hora del evento",
+    "eventMap": "Mapa del evento (URL)",  
+    "ceremonyTitle": "Ceremonia",
+    "ceremonyLocation": "Lugar de la ceremonia",
+    "ceremonyTime": "Hora de la ceremonia",
+    "ceremonyMap": "Mapa de la ceremonia (URL)",  
+    "receptionTitle": "Recepción",
+    "receptionLocation": "Lugar de la recepción",
+    "receptionTime": "Hora de la recepción",
+    "receptionMap": "Mapa de la recepción (URL)",  
+    "dressTitle": "Vestimenta",
+    "dressType": "Tipo de vestimenta",
+    "dressTypeEnglish": "Tipo de vestimenta Inglés"
   },
 
   "buttons": {

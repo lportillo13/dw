@@ -1,15 +1,19 @@
 import React from 'react';
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
 
-export default function Evento({ formData = {}, handleChange }) {
+export default function Evento({ formData = {}, handleChange, lang }) {
+  const common = lang === 'es' ? esCommon : enCommon;
+  const labels = common.sections;
+
   return (
     <div>
-      <h3>Evento</h3>
+      <h3>{labels.eventTitle}</h3>
 
-      {/* General event details if "Es Evento" is active */}
       {formData.es_evento ? (
         <>
           <div className="form-group">
-            <label>Ubicación de la boda</label>
+            <label>{labels.eventWeddingLocation}</label>
             <input
               type="text"
               name="ubicacion_de_la_boda"
@@ -19,7 +23,7 @@ export default function Evento({ formData = {}, handleChange }) {
             />
           </div>
           <div className="form-group">
-            <label>Lugar del Evento</label>
+            <label>{labels.eventPlace}</label>
             <input
               type="text"
               name="lugar_del_evento"
@@ -29,7 +33,7 @@ export default function Evento({ formData = {}, handleChange }) {
             />
           </div>
           <div className="form-group">
-            <label>Hora del Evento</label>
+            <label>{labels.eventTime}</label>
             <input
               type="time"
               name="hora_del_evento"
@@ -39,7 +43,7 @@ export default function Evento({ formData = {}, handleChange }) {
             />
           </div>
           <div className="form-group">
-            <label>Mapa del Evento (URL)</label>
+            <label>{labels.eventMap}</label>
             <input
               type="text"
               name="mapa_del_evento"
@@ -51,12 +55,12 @@ export default function Evento({ formData = {}, handleChange }) {
         </>
       ) : (
         <>
-          {/* Ceremonia fields */}
+          {/* Ceremonia */}
           {formData.activar_ceremonia && (
             <div>
-              <h4>Ceremonia</h4>
+              <h4>{labels.ceremonyTitle}</h4>
               <div className="form-group">
-                <label>Lugar de la Ceremonia</label>
+                <label>{labels.ceremonyLocation}</label>
                 <input
                   type="text"
                   name="lugar_de_la_ceremonia"
@@ -66,7 +70,7 @@ export default function Evento({ formData = {}, handleChange }) {
                 />
               </div>
               <div className="form-group">
-                <label>Hora de la Ceremonia</label>
+                <label>{labels.ceremonyTime}</label>
                 <input
                   type="time"
                   name="hora_de_la_ceremonia"
@@ -76,7 +80,7 @@ export default function Evento({ formData = {}, handleChange }) {
                 />
               </div>
               <div className="form-group">
-                <label>Mapa de la Ceremonia (URL)</label>
+                <label>{labels.ceremonyMap}</label>
                 <input
                   type="text"
                   name="mapa_de_la_ceremonia"
@@ -88,12 +92,12 @@ export default function Evento({ formData = {}, handleChange }) {
             </div>
           )}
 
-          {/* Recepción fields */}
+          {/* Recepción */}
           {formData.activar_recepcion && (
             <div>
-              <h4>Recepción</h4>
+              <h4>{labels.receptionTitle}</h4>
               <div className="form-group">
-                <label>Lugar de la Recepción</label>
+                <label>{labels.receptionLocation}</label>
                 <input
                   type="text"
                   name="lugar_de_la_recepcion"
@@ -103,7 +107,7 @@ export default function Evento({ formData = {}, handleChange }) {
                 />
               </div>
               <div className="form-group">
-                <label>Hora de la Recepción</label>
+                <label>{labels.receptionTime}</label>
                 <input
                   type="time"
                   name="hora_de_la_recepcion"
@@ -113,7 +117,7 @@ export default function Evento({ formData = {}, handleChange }) {
                 />
               </div>
               <div className="form-group">
-                <label>Mapa de la Recepción (URL)</label>
+                <label>{labels.receptionMap}</label>
                 <input
                   type="text"
                   name="mapa_de_la_recepcion"
@@ -127,12 +131,12 @@ export default function Evento({ formData = {}, handleChange }) {
         </>
       )}
 
-      {/* Vestimenta fields */}
+      {/* Vestimenta */}
       {formData.activar_vestimenta && (
         <div>
-          <h4>Vestimenta</h4>
+          <h4>{labels.dressTitle}</h4>
           <div className="form-group">
-            <label>Tipo de Vestimenta</label>
+            <label>{labels.dressType}</label>
             <textarea
               name="tipo_de_vestimenta"
               className="form-control"
@@ -142,7 +146,7 @@ export default function Evento({ formData = {}, handleChange }) {
           </div>
           {formData.activar_ingles && (
             <div className="form-group">
-              <label>Tipo de Vestimenta Inglés</label>
+              <label>{labels.dressTypeEnglish}</label>
               <textarea
                 name="tipo_de_vestimenta_ingles"
                 className="form-control"
