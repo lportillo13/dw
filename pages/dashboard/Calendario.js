@@ -3,14 +3,16 @@ import CloudImageUploader from './CloudImageUploader';
 import enCommon from '../../locales/en/common.json';
 import esCommon from '../../locales/es/common.json';
 
-export default function Calendario({ formData = {}, handleChange, lang, coupleId }) {
+export default function Calendario({ formData = {}, handleChange, handleJsonbChange, lang, coupleId }) {
   const common = lang === 'es' ? esCommon : enCommon;
   const labels = common.sections;
+  const idiomas = formData.idiomas || Object.keys(formData.texto_calendario || { es: '', en: '' });
 
   return (
     <div>
       <h3>{labels.calendarTitle}</h3>
 
+      {/* Foto Calendario */}
       <div className="form-group">
         <label>{labels.calendarPhoto}</label>
         <CloudImageUploader
@@ -22,27 +24,22 @@ export default function Calendario({ formData = {}, handleChange, lang, coupleId
         />
       </div>
 
+      {/* Texto Calendario (jsonb per idioma) */}
       <div className="form-group">
         <label>{labels.calendarText}</label>
-        <textarea
-          name="texto_calendario"
-          className="form-control"
-          value={formData.texto_calendario || ''}
-          onChange={handleChange}
-        />
-      </div>
-
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>{labels.calendarTextEnglish}</label>
+        {idiomas.map((code) => (
           <textarea
-            name="texto_calendario_ingles"
-            className="form-control"
-            value={formData.texto_calendario_ingles || ''}
-            onChange={handleChange}
+            key={`texto_calendario_${code}`}
+            name="texto_calendario"
+            className="form-control mb-2"
+            value={formData.texto_calendario?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('texto_calendario', e.target.value, code)
+            }
+            placeholder={`${labels.calendarText} [${code.toUpperCase()}]`}
           />
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }

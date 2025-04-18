@@ -143,7 +143,11 @@
     "giftsTitle": "Título Regalos",
     "accommodationTitle": "Título Hospedaje",
     "confirmationTitle": "Título Confirmación",
-    "activateIcon": "Activar Icono"
+    "activateIcon": "Activar Icono",
+    "romanticText": "Texto Romántico",
+    "enableTextOverImage": "Activar Texto Sobre Imagen",
+    "romanticTextBackground": "Fondo Texto Romántico",
+    "romanticTextWysiwyg": "Texto Romántico (WYSIWYG)"
   },
 
   "buttons": {

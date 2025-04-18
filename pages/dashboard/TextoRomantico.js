@@ -1,27 +1,29 @@
-// TextoRomantico.js
 import React from 'react';
 import CloudImageUploader from './CloudImageUploader';
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
 
 export default function TextoRomantico({
   formData = {},
   handleChange,
   handleJsonbChange,
-  coupleId
+  coupleId,
+  lang
 }) {
-  // You might store an array of active languages in formData.idiomas;
-  // otherwise we fall back to whatever keys exist in texto_romantico.
-  const languages =
-    formData.idiomas ||
-    Object.keys(formData.texto_romantico || { es: '', en: '' });
+  const common = lang === 'es' ? esCommon : enCommon;
+  const labels = common.sections;
+  const idiomas =
+    formData.idiomas || Object.keys(formData.texto_romantico || { es: '', en: '' });
 
   const romanticTexts = formData.texto_romantico || {};
 
   return (
     <div>
-      <h3>Texto Romántico</h3>
+      <h3>{labels.romanticText}</h3>
 
+      {/* Activar Texto Sobre Imagen */}
       <div className="form-group">
-        <label>Activar Texto Sobre Imagen</label>
+        <label>{labels.enableTextOverImage}</label>
         <input
           type="checkbox"
           name="activar_texto_sobre_imagen"
@@ -30,8 +32,9 @@ export default function TextoRomantico({
         />
       </div>
 
+      {/* Fondo Imagen Romántico */}
       <div className="form-group">
-        <label>Fondo Texto Romántico</label>
+        <label>{labels.romanticTextBackground}</label>
         <CloudImageUploader
           name="fondo_texto_biblico"
           value={formData.fondo_texto_biblico || ''}
@@ -41,24 +44,20 @@ export default function TextoRomantico({
         />
       </div>
 
+      {/* Texto Romántico JSONB */}
       <div className="form-group">
-        <label>Texto Romántico (WYSIWYG)</label>
-
-        {languages.map((code) => (
-          <div className="mt-2" key={code}>
-            <label>
-              Texto Romántico [{code.toUpperCase()}]
-            </label>
-            <textarea
-              name="texto_romantico"
-              className="form-control"
-              value={romanticTexts[code] || ''}
-              onChange={(e) =>
-                handleJsonbChange('texto_romantico', e.target.value, code)
-              }
-              placeholder={`Enter the romantic message for ${code}…`}
-            />
-          </div>
+        <label>{labels.romanticTextWysiwyg}</label>
+        {idiomas.map((code) => (
+          <textarea
+            key={`texto_romantico_${code}`}
+            name="texto_romantico"
+            className="form-control mb-2"
+            placeholder={`${labels.romanticText} [${code.toUpperCase()}]`}
+            value={romanticTexts[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('texto_romantico', e.target.value, code)
+            }
+          />
         ))}
       </div>
     </div>

@@ -144,7 +144,11 @@
     "giftsTitle": "Gifts Title",
     "accommodationTitle": "Accommodation Title",
     "confirmationTitle": "Confirmation Title",
-    "activateIcon": "Activate Icon"
+    "activateIcon": "Activate Icon",
+    "romanticText": "Romantic Text",
+    "enableTextOverImage": "Enable Text Over Image",
+    "romanticTextBackground": "Romantic Text Background Image",
+    "romanticTextWysiwyg": "Romantic Text (WYSIWYG)"
   },
 
   "buttons": {
