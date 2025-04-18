@@ -1,10 +1,21 @@
+// Evento.js
 import React from 'react';
 import enCommon from '../../locales/en/common.json';
 import esCommon from '../../locales/es/common.json';
 
-export default function Evento({ formData = {}, handleChange, lang }) {
+export default function Evento({
+  formData = {},
+  handleChange,
+  handleJsonbChange,
+  lang
+}) {
   const common = lang === 'es' ? esCommon : enCommon;
   const labels = common.sections;
+
+  // jsonb languages for dress code
+  const dressLangs =
+    formData.idiomas ||
+    Object.keys(formData.tipo_de_vestimenta || { es: '', en: '' });
 
   return (
     <div>
@@ -22,6 +33,7 @@ export default function Evento({ formData = {}, handleChange, lang }) {
               onChange={handleChange}
             />
           </div>
+
           <div className="form-group">
             <label>{labels.eventPlace}</label>
             <input
@@ -32,6 +44,7 @@ export default function Evento({ formData = {}, handleChange, lang }) {
               onChange={handleChange}
             />
           </div>
+
           <div className="form-group">
             <label>{labels.eventTime}</label>
             <input
@@ -42,6 +55,7 @@ export default function Evento({ formData = {}, handleChange, lang }) {
               onChange={handleChange}
             />
           </div>
+
           <div className="form-group">
             <label>{labels.eventMap}</label>
             <input
@@ -55,7 +69,6 @@ export default function Evento({ formData = {}, handleChange, lang }) {
         </>
       ) : (
         <>
-          {/* Ceremonia */}
           {formData.activar_ceremonia && (
             <div>
               <h4>{labels.ceremonyTitle}</h4>
@@ -92,7 +105,6 @@ export default function Evento({ formData = {}, handleChange, lang }) {
             </div>
           )}
 
-          {/* Recepción */}
           {formData.activar_recepcion && (
             <div>
               <h4>{labels.receptionTitle}</h4>
@@ -131,30 +143,30 @@ export default function Evento({ formData = {}, handleChange, lang }) {
         </>
       )}
 
-      {/* Vestimenta */}
+      {/* Dress‑code JSONB */}
       {formData.activar_vestimenta && (
         <div>
           <h4>{labels.dressTitle}</h4>
-          <div className="form-group">
-            <label>{labels.dressType}</label>
-            <textarea
-              name="tipo_de_vestimenta"
-              className="form-control"
-              value={formData.tipo_de_vestimenta || ''}
-              onChange={handleChange}
-            />
-          </div>
-          {formData.activar_ingles && (
-            <div className="form-group">
-              <label>{labels.dressTypeEnglish}</label>
+          {dressLangs.map((code) => (
+            <div className="form-group" key={code}>
+              <label>
+                {labels.dressType} [{code.toUpperCase()}]
+              </label>
               <textarea
-                name="tipo_de_vestimenta_ingles"
+                name="tipo_de_vestimenta"
                 className="form-control"
-                value={formData.tipo_de_vestimenta_ingles || ''}
-                onChange={handleChange}
+                value={formData.tipo_de_vestimenta?.[code] || ''}
+                onChange={(e) =>
+                  handleJsonbChange(
+                    'tipo_de_vestimenta',
+                    e.target.value,
+                    code
+                  )
+                }
+                placeholder={`${labels.dressType} [${code.toUpperCase()}]`}
               />
             </div>
-          )}
+          ))}
         </div>
       )}
     </div>
