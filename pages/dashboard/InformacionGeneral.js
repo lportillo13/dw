@@ -1,19 +1,32 @@
 import React from 'react';
 import CloudImageUploader from './CloudImageUploader';
+import enCommon from '../../locales/en/common.json';
+import esCommon from '../../locales/es/common.json';
 
-export default function InformacionGeneral({ formData = {}, handleChange, coupleId }) {
+export default function InformacionGeneral({
+  formData = {},
+  handleChange,
+  handleJsonbChange,
+  coupleId,
+  lang
+}) {
+  const common = lang === 'es' ? esCommon : enCommon;
+  const labels = common.sections;
+  const idiomas =
+    formData.idiomas || Object.keys(formData.titulo_de_la_web_meta_ || { es: '', en: '' });
+
   return (
     <div>
       {/* Tipo de Paquete */}
       <div className="form-group">
-        <label>Tipo de Paquete</label>
+        <label>{labels.packageType}</label>
         <select
           name="tipo_de_paquete"
           className="form-control"
           value={formData.tipo_de_paquete || ''}
           onChange={handleChange}
         >
-          <option value="">Seleccione...</option>
+          <option value="">{labels.select}</option>
           <option value="Oro">Oro</option>
           <option value="Plata">Plata</option>
         </select>
@@ -21,7 +34,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Nombre del Novio */}
       <div className="form-group">
-        <label>Nombre del Novio</label>
+        <label>{labels.groomName}</label>
         <input
           type="text"
           name="nombre_del_novio"
@@ -33,7 +46,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Nombre de la Novia */}
       <div className="form-group">
-        <label>Nombre de la Novia</label>
+        <label>{labels.brideName}</label>
         <input
           type="text"
           name="nombre_de_la_novia"
@@ -45,7 +58,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Fecha de la Boda */}
       <div className="form-group">
-        <label>Fecha de la Boda</label>
+        <label>{labels.weddingDate}</label>
         <input
           type="date"
           name="fecha_de_la_boda"
@@ -57,7 +70,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Espacios Invitados */}
       <div className="form-group">
-        <label>Espacios Invitados</label>
+        <label>{labels.guestSpaces}</label>
         <input
           type="number"
           name="espacios_invitados"
@@ -69,7 +82,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Color Títulos */}
       <div className="form-group">
-        <label>Color Títulos</label>
+        <label>{labels.titleColor}</label>
         <input
           type="color"
           name="color_titulos"
@@ -81,7 +94,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Color Fondo */}
       <div className="form-group">
-        <label>Color Fondo</label>
+        <label>{labels.backgroundColor}</label>
         <input
           type="color"
           name="color_fondo"
@@ -93,7 +106,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
 
       {/* Slug de Invitación */}
       <div className="form-group">
-        <label>Slug de Invitación</label>
+        <label>{labels.inviteSlug}</label>
         <input
           type="text"
           name="slug_de_invitacion"
@@ -106,7 +119,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
       {/* Sobre Invitación Frente */}
       <CloudImageUploader
         name="sobre_invitacion"
-        label="Sobre Invitación Frente"
+        label={labels.inviteFront}
         value={formData.sobre_invitacion || ''}
         onChange={handleChange}
         folder="invitacion"
@@ -116,7 +129,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
       {/* Sobre Invitación Atrás */}
       <CloudImageUploader
         name="sobre_invitacion_atras"
-        label="Sobre Invitación Atrás"
+        label={labels.inviteBack}
         value={formData.sobre_invitacion_atras || ''}
         onChange={handleChange}
         folder="invitacion"
@@ -126,7 +139,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
       {/* Solapa Cerrada */}
       <CloudImageUploader
         name="solapa_cerrada"
-        label="Solapa Cerrada"
+        label={labels.closedFlap}
         value={formData.solapa_cerrada || ''}
         onChange={handleChange}
         folder="invitacion"
@@ -136,7 +149,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
       {/* Solapa Abierta */}
       <CloudImageUploader
         name="solapa_abierta"
-        label="Solapa Abierta"
+        label={labels.openFlap}
         value={formData.solapa_abierta || ''}
         onChange={handleChange}
         folder="invitacion"
@@ -146,7 +159,7 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
       {/* Fondo Sobre */}
       <CloudImageUploader
         name="fondo_sobre"
-        label="Fondo Sobre"
+        label={labels.envelopeBackground}
         value={formData.fondo_sobre || ''}
         onChange={handleChange}
         folder="invitacion"
@@ -156,64 +169,46 @@ export default function InformacionGeneral({ formData = {}, handleChange, couple
       {/* Fondo Invitación */}
       <CloudImageUploader
         name="fondo_invitacion"
-        label="Fondo Invitación"
+        label={labels.inviteBackground}
         value={formData.fondo_invitacion || ''}
         onChange={handleChange}
         folder="invitacion"
         coupleId={coupleId}
       />
 
-      {/* Título de la web (META) */}
+      {/* Título de la web (META) - jsonb */}
       <div className="form-group">
-        <label>Título de la web (META)</label>
-        <input
-          type="text"
-          name="titulo_de_la_web_meta_"
-          className="form-control"
-          value={formData.titulo_de_la_web_meta_ || ''}
-          onChange={handleChange}
-        />
+        <label>{labels.webTitle}</label>
+        {idiomas.map((code) => (
+          <input
+            key={`titulo_de_la_web_meta_${code}`}
+            type="text"
+            className="form-control mb-2"
+            placeholder={`${labels.webTitle} [${code.toUpperCase()}]`}
+            value={formData.titulo_de_la_web_meta_?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('titulo_de_la_web_meta_', e.target.value, code)
+            }
+          />
+        ))}
       </div>
 
-      {/* Descripción de la web (META) */}
+      {/* Descripción de la web (META) - jsonb */}
       <div className="form-group">
-        <label>Descripción de la web (META)</label>
-        <input
-          type="text"
-          name="descripcion_de_la_web"
-          className="form-control"
-          value={formData.descripcion_de_la_web || ''}
-          onChange={handleChange}
-        />
+        <label>{labels.webDescription}</label>
+        {idiomas.map((code) => (
+          <input
+            key={`descripcion_de_la_web_${code}`}
+            type="text"
+            className="form-control mb-2"
+            placeholder={`${labels.webDescription} [${code.toUpperCase()}]`}
+            value={formData.descripcion_de_la_web?.[code] || ''}
+            onChange={(e) =>
+              handleJsonbChange('descripcion_de_la_web', e.target.value, code)
+            }
+          />
+        ))}
       </div>
-
-      {/* Título de la web (META) Inglés */}
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Título de la web (META) Inglés</label>
-          <input
-            type="text"
-            name="titulo_de_la_web_meta_ingles"
-            className="form-control"
-            value={formData.titulo_de_la_web_meta_ingles || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
-      {/* Descripción de la web (META) Inglés */}
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Descripción de la web (META) Inglés</label>
-          <input
-            type="text"
-            name="descripcion_de_la_web_meta_ingles"
-            className="form-control"
-            value={formData.descripcion_de_la_web_meta_ingles || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
     </div>
   );
 }
