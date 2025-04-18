@@ -108,7 +108,24 @@
     "initialMedia": "Media Inicial",
     "mainPhoto": "Foto Principal",
     "initialVideo": "Video Inicial (URL)",
-    "initialText": "Texto Inicial"
+    "initialText": "Texto Inicial", 
+    "packageType": "Tipo de Paquete",
+    "select": "Seleccione...",
+    "groomName": "Nombre del Novio",
+    "brideName": "Nombre de la Novia",
+    "weddingDate": "Fecha de la Boda",
+    "guestSpaces": "Espacios Invitados",
+    "titleColor": "Color Títulos",
+    "backgroundColor": "Color Fondo",
+    "inviteSlug": "Slug de Invitación",
+    "inviteFront": "Sobre Invitación Frente",
+    "inviteBack": "Sobre Invitación Atrás",
+    "closedFlap": "Solapa Cerrada",
+    "openFlap": "Solapa Abierta",
+    "envelopeBackground": "Fondo Sobre",
+    "inviteBackground": "Fondo Invitación",
+    "webTitle": "Título de la web (META)",
+    "webDescription": "Descripción de la web (META)"
   },
 
   "buttons": {

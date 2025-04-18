@@ -109,7 +109,24 @@
     "initialMedia": "Initial Media",
     "mainPhoto": "Main Photo",
     "initialVideo": "Initial Video (URL)",
-    "initialText": "Initial Text"
+    "initialText": "Initial Text",
+    "packageType": "Package Type",
+    "select": "Select...",
+    "groomName": "Groom's Name",
+    "brideName": "Bride's Name",
+    "weddingDate": "Wedding Date",
+    "guestSpaces": "Guest Spaces",
+    "titleColor": "Title Color",
+    "backgroundColor": "Background Color",
+    "inviteSlug": "Invitation Slug",
+    "inviteFront": "Invitation Front",
+    "inviteBack": "Invitation Back",
+    "closedFlap": "Closed Flap",
+    "openFlap": "Open Flap",
+    "envelopeBackground": "Envelope Background",
+    "inviteBackground": "Invitation Background",
+    "webTitle": "Website Title (META)",
+    "webDescription": "Website Description (META)"
   },
 
   "buttons": {
