@@ -43,19 +43,6 @@ export default function RSVP({ formData = {}, handleChange, coupleId }) {
         />
       </div>
 
-      {/* Fecha de confirmación Inglés (conditional on activar_ingles) */}
-      {formData.activar_ingles && (
-        <div className="form-group">
-          <label>Fecha de confirmación Inglés</label>
-          <textarea
-            name="fecha_de_confirmacion_ingles"
-            className="form-control"
-            value={formData.fecha_de_confirmacion_ingles || ''}
-            onChange={handleChange}
-          />
-        </div>
-      )}
-
       {/* Imagen RSVP (conditional on activar_confirmacion) */}
       {formData.activar_confirmacion && (
         <CloudImageUploader
