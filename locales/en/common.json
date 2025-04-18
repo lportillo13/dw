@@ -126,7 +126,16 @@
     "envelopeBackground": "Envelope Background",
     "inviteBackground": "Invitation Background",
     "webTitle": "Website Title (META)",
-    "webDescription": "Website Description (META)"
+    "webDescription": "Website Description (META)",
+    "rsvpTitle": "RSVP",
+    "giftType": "Type of Gift",
+    "giftTypeEnglish": "Type of Gift (English)",
+    "confirmationDate": "Confirmation Date",
+    "rsvpImage": "RSVP Image",
+    "adultsOnly": "Adults Only?",
+    "enableFoodOption": "Enable Food Restrictions in Form",
+    "adultsText": "Adults Text",
+    "adultsTextEnglish": "Adults Text (English)"
   },
 
   "buttons": {

@@ -125,7 +125,16 @@
     "envelopeBackground": "Fondo Sobre",
     "inviteBackground": "Fondo Invitación",
     "webTitle": "Título de la web (META)",
-    "webDescription": "Descripción de la web (META)"
+    "webDescription": "Descripción de la web (META)",
+    "rsvpTitle": "RSVP",
+    "giftType": "Tipo de Regalo",
+    "giftTypeEnglish": "Tipo de Regalo Inglés",
+    "confirmationDate": "Fecha de confirmación",
+    "rsvpImage": "Imagen RSVP",
+    "adultsOnly": "¿Solo para adultos?",
+    "enableFoodOption": "Activar Comida en Formulario",
+    "adultsText": "Adultos Texto",
+    "adultsTextEnglish": "Adultos Texto Inglés"
   },
 
   "buttons": {
