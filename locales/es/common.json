@@ -15,7 +15,7 @@
   "codeCopied": "✅ Código copiado al portapapeles",
   "copyError": "No se pudo copiar. Copia manualmente:",
   "submitError": "Hubo un error al guardar. Intenta nuevamente.",
-  
+
   "form": {
     "fecha_boda": "¿Cuál es la fecha de su boda?",
     "lugar_ceremonia": "¿Dónde será la ceremonia?",
@@ -52,5 +52,13 @@
     "fecha_confirmacion": "¿Hasta qué fecha desean recibir confirmaciones de asistencia?",
     "restriccion_alimenticia": "¿Desean incluir una sección para restricciones alimenticias?",
     "espacios_invitacion": "¿Cuántos espacios desea incluir por invitación para escribir nombres?"
+  },
+
+  "titles": {
+    "dashboard": "Panel de Pareja"
+  },
+
+  "buttons": {
+    "saveChanges": "Guardar Cambios"
   }
 }
